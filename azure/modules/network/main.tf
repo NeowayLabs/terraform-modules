@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "network" {
 }
 
 module "terraform-azurerm-vnet" {
-  source              = "Azure/vnet/azurerm"
+  source              = "gitlab.neoway.com.br/labs/terraform-modules/tree/azure-vnet/azure/modules/vnet"
   version             = "1.0.0"
   vnet_name           = "${var.vnet_name}"
   location            = "${var.location}"
