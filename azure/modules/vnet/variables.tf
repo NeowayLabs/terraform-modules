@@ -10,7 +10,7 @@ variable "resource_group_name" {
 
 variable "location" {
   description = "The location/region where the core network will be created. The full list of Azure regions can be found at https://azure.microsoft.com/regions"
-  default     = "westus"
+  default     = "eastus2"
 }
 
 variable "address_space" {
@@ -31,25 +31,19 @@ variable "subnet_prefixes" {
 
 variable "subnet_names" {
   description = "A list of public subnets inside the vNet."
-  default     = ["subnet1", "subnet2", "subnet3"]
+  default     = ["subnet1"]
 }
 
 variable "nsg_ids" {
   description = "A map of subnet name to Network Security Group IDs"
   type        = "map"
 
-  default = {
-    subnet1 = "nsgid1"
-    subnet3 = "nsgid3"
-  }
+  default = {}
 }
 
 variable "tags" {
   description = "The tags to associate with your network and subnets."
   type        = "map"
 
-  default = {
-    tag1 = ""
-    tag2 = ""
-  }
+  default = {}
 }
