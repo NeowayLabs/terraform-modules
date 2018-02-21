@@ -28,16 +28,3 @@ variable "rules" {
   default     = []
 }
 
-# source address prefix to be applied to all rules
-variable "source_address_prefix" {
-  type    = "list"
-
-  # Example ["10.0.3.0/24"] or ["VirtualNetwork"]
-}
-
-# Destination address prefix to be applied to all rules
-variable "destination_address_prefix" {
-  type    = "list"
-
-  # Example ["10.0.3.0/32","10.0.3.128/32"] or ["VirtualNetwork"]
-}
