@@ -1,6 +1,6 @@
 
 module "vnet" {
-    source              = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/vnet?ref=azure-vnet"
+    source              = "../../modules/vnet"
     resource_group_name = "test-rg"
     location            = "eastus"
     vnet_name           = "test-vnet"
@@ -14,7 +14,7 @@ module "vnet" {
 }
 
 module "nsg1" {
-    source                     = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/nsg?ref=azure-vnet"
+    source                     = "../../modules/nsg"
     resource_group_name        = "test-rg"
     location                   = "eastus"
     security_group_name        = "test-nsg-1"
@@ -35,7 +35,7 @@ module "nsg1" {
 }
 
 module "nsg2" {
-    source                     = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/nsg?ref=azure-vnet"
+    source                     = "../../modules/nsg"
     resource_group_name        = "test-rg"
     location                   = "eastus"
     security_group_name        = "test-nsg-2"
