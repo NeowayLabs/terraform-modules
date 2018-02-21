@@ -12,7 +12,7 @@ Usage
 
 ```hcl
 module "network" {
-    source              = "Azure/network/azurerm"
+    source              = "git::https://gitlab.neoway.com.br/labs/terraform-modules/azure/modules/network"
     resource_group_name = "myapp"
     location            = "westus"
     address_space       = "10.0.0.0/16"
