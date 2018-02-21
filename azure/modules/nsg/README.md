@@ -1,60 +1,54 @@
-# terraform-modules-azure-nsg #
+# terraform-modules-network-security-group #
 
-Create a basic network security group in Azure
-==============================================================================
+Create a network security group
+-------------------------------
 
-This Terraform module deploys a Network Security Group in Azure with just one rule denying all inbound trafic.
+This Terraform module deploys a Network Security Group (NSG) in Azure and optionally attach it to the specified vnets.
 
-resource "azurerm_network_security_rule" "denyinboundall" {
-  name                        = "deny-inbound-all"
-  priority                    = 4000
-  direction                   = "Inbound"
-  access                      = "Deny"
-  protocol                    = "*"
-  source_port_range           = "*"
-  destination_port_range      = "*"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "*"
-  resource_group_name         = "${azurerm_resource_group.nsg.name}"
-  network_security_group_name = "${azurerm_network_security_group.nsg.name}"
-}
+This module is a complement to the Network module. Use the network_security_group_id from the output of this module to apply it to a subnet in the Azure Network module.
 
-Usage
------
+This module includes a a set of pre-defined rules for commonly used protocols (for example HTTP or SSH).
+
+Usage with the generic module:
+------------------------------
+
+The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules.
 
 ```hcl
-module "nsg" {
-    source              = "git::https://gitlab.neoway.com.br/labs/terraform-modules/tree/azure-vnet/azure/modules/nsg"
-    resource_group_name = "myapp"
-    location            = "eastus2"
+module "network-security-group" {
+    source                     = "git::https://gitlab.neoway.com.br/labs/terraform-modules/azure/modules/nsg"
+    resource_group_name        = "nsg-resource-group"
+    location                   = "westus"
+    security_group_name        = "nsg"
+    predefined_rules           = [
+      {
+        name                   = "SSH"
+        priority               = "500"
+        source_address_prefix  = ["10.0.3.0/24"]
+      },
+      {
+        name                   = "LDAP"
+        source_port_range      = "1024-1026"
+      }
+    ]
+    custom_rules               = [
+      {
+        name                   = "myhttp"
+        priority               = "200"
+        direction              = "Inbound"
+        access                 = "Allow"
+        protocol               = "tcp"
+        destination_port_range = "8080"
+        description            = "description-myhttp"
+      }
+    ]
+    tags                       = {
+                                   environment = "dev"
+                                   costcenter  = "it"
+                                 }
 }
 ```
+## Authors
 
-Example adding another network security rule:
------------------------------------------------
-
-```hcl
-variable "resource_group_name" { }
-
-module "nsg" {
-    source              = "git::https://gitlab.neoway.com.br/labs/terraform-modules/tree/azure-vnet/azure/modules/nsg"
-    resource_group_name = "myapp"
-    location            = "eastus2"
-}
-
-resource "azurerm_network_security_rule" "allowsshinbound" {
-  depends_on                  = ["module.nsg"]
-  name                        = "allow-inbound-ssh"
-  priority                    = 100
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp
-  source_port_range           = "*"
-  destination_port_range      = "22"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "*"
-  resource_group_name         = "${azurerm_resource_group.nsg.name}"
-  network_security_group_name = "${azurerm_network_security_group.nsg.name}"
-}
-```
+Originally created by [Damien Caro](http://github.com/dcaro) and [Richard Guthrie](https://github.com/rguthriemsft).
 

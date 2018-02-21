@@ -1,15 +1,51 @@
-variable "nsg_name" {
-  description = "Name of the nsg to create"
-  default     = "acctnsg"
-}
-
+# Network Security Group definition
 variable "resource_group_name" {
-  description = "Default resource group name that the nsg will be created in."
-  default     = "myapp-rg"
+  default     = "nsg_rg"
+  description = "Name of the resource group"
 }
 
-variable "location" {
-  description = "The location/region where the core network will be created. The full list of Azure regions can be found at https://azure.microsoft.com/regions"
-  default     = "eastus2"
+variable "location" {}
+
+variable "security_group_name" {
+  description = "Network security group name"
+  default     = "nsg"
 }
 
+variable "tags" {
+  description = "The tags to associate with your network security group."
+  type        = "map"
+  default     = {}
+}
+
+# Security Rules definition 
+
+# Predefined rules   
+variable "predefined_rules" {
+  type    = "list"
+  default = []
+}
+
+# Custom security rules
+# [priority, direction, access, protocol, source_port_range, destination_port_range, description]"
+# All the fields are required.
+variable "custom_rules" {
+  description = "Security rules for the network security group using this format name = [priority, direction, access, protocol, source_port_range, destination_port_range, source_address_prefix, destination_address_prefix, description]"
+  type        = "list"
+  default     = []
+}
+
+# source address prefix to be applied to all rules
+variable "source_address_prefix" {
+  type    = "list"
+  default = ["*"]
+
+  # Example ["10.0.3.0/24"] or ["VirtualNetwork"]
+}
+
+# Destination address prefix to be applied to all rules
+variable "destination_address_prefix" {
+  type    = "list"
+  default = ["*"]
+
+  # Example ["10.0.3.0/32","10.0.3.128/32"] or ["VirtualNetwork"] 
+}
