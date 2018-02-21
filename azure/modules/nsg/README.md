@@ -16,7 +16,7 @@ The following example demonstrate how to use the network-security-group module w
 module "network-security-group" {
     source                     = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/nsg"
     resource_group_name        = "nsg-resource-group"
-    location                   = "westus"
+    location                   = "eastus"
     security_group_name        = "nsg"
     rules                      = [
       {
@@ -26,9 +26,9 @@ module "network-security-group" {
         access                     = "Allow"
         protocol                   = "tcp"
         source_port_range          = "*"
-        source_address_prefix      = ["*"]
+        source_address_prefix      = "*"
         destination_port_range     = "80"
-        destination_address_prefix = ["10.0.0.0/24"]
+        destination_address_prefix = "10.0.0.0/24"
         description                = "description-myhttp"
       }
     ]
