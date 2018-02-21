@@ -12,7 +12,7 @@ Usage
 
 ```hcl
 module "vnet" {
-    source              = "git::https://gitlab.neoway.com.br/labs/terraform-modules/azure/modules/vnet"
+    source              = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/vnet"
     resource_group_name = "myapp"
     location            = "westus"
     address_space       = "10.0.0.0/16"
