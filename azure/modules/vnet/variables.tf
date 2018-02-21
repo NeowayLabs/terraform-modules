@@ -41,6 +41,13 @@ variable "nsg_ids" {
   default = {}
 }
 
+variable "route_table_ids" {
+  description = "A map of subnet name to 'Route Table IDs"
+  type        = "map"
+
+  default = {}
+}
+
 variable "tags" {
   description = "The tags to associate with your network and subnets."
   type        = "map"
