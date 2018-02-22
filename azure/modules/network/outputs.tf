@@ -25,11 +25,11 @@ output "network_subnets" {
 
 output "network_nsgs" {
   description = "The ids of NSGs created inside the newly vNet"
-  value       = "${modules.nsg.*.network_security_group_id}"
+  value       = "${module.nsg.*.network_security_group_id}"
 }
 
 output "network_route_tables" {
   description = "The ids of route tables created inside the newly vNet"
-  value       = "${modules.route_table.*.route_table_id}"
+  value       = "${module.route_table.*.route_table_id}"
 }
 
