@@ -1,10 +1,14 @@
 # Network Security Group definition
+
 variable "resource_group_name" {
   default     = "nsg_rg"
   description = "Name of the resource group"
 }
 
-variable "location" {}
+variable "location" {
+  description = "The location/region where the core network will be created. The full list of Azure regions can be found at https://azure.microsoft.com/regions"
+  default     = "eastus2"
+}
 
 variable "security_group_name" {
   description = "Network security group name"

@@ -1,3 +1,5 @@
+# Virtual Network definition
+
 variable "vnet_name" {
   description = "Name of the vnet to create"
   default     = "acctvnet"
