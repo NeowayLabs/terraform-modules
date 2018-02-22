@@ -7,7 +7,7 @@ module "vnet" {
     address_space       = "10.31.0.0/16"
     subnet_prefixes     = ["10.31.1.0/24", "10.31.2.0/24"]
     subnet_names        = ["test-subnet1", "test-subnet2"]
-	route_table_ids     = {
+    route_table_ids     = {
                             test-subnet1 = "${module.rt1.route_table_id}"
                             test-subnet2 = "${module.rt2.route_table_id}"
                           }
