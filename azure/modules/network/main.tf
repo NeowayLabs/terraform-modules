@@ -14,16 +14,9 @@ module "vnet" {
   subnet_names        = "${var.subnet_names}"
   tags                = "${var.tags}"
 
-  /* TODO how do it?
-  nsg_ids             = {
-                          test-subnet1 = "${module.nsg1.network_security_group_id}"
-                          test-subnet2 = "${module.nsg2.network_security_group_id}"
-                        }
-  route_table_ids     = {
-                          test-subnet1 = "${module.rt1.route_table_id}"
-                          test-subnet2 = "${module.rt2.route_table_id}"
-                        }
-  */
+  nsg_ids             = "${zipmap(var.subnet_names, module.nsg.*.network_security_group_id)}"
+
+  route_table_ids     = "${zipmap(var.subnet_names, module.route_table.*.route_table_id)}"
 }
 
 module "nsg" {
@@ -35,8 +28,8 @@ module "nsg" {
   count               = "${length(var.nsg_names)}"
 }
 
-module "route-table" {
-  source              = "../../modules/nsg"
+module "route_table" {
+  source              = "../../modules/route-table"
   resource_group_name = "${azurerm_resource_group.network.name}"
   location            = "${var.location}"
   route_table_name    = "${var.route_table_names[count.index]}"
