@@ -2,7 +2,6 @@
 
 variable "resource_group_name" {
   description = "Default resource group name that the subnet will be created in."
-  default     = "myapp-rg"
 }
 
 variable "location" {
@@ -12,7 +11,6 @@ variable "location" {
 
 variable "vnet_name" {
   description = "Name of the vnet to associate."
-  default     = "acctvnet"
 }
 
 variable "subnet_prefix" {
@@ -22,17 +20,14 @@ variable "subnet_prefix" {
 
 variable "subnet_name" {
   description = "The name of the subnet. Changing this forces a new resource to be created."
-  default     = "test-subnet1"
 }
 
 variable "security_group_name" {
   description = "The network security group name will be created and associated to the newly subnet."
-  default     = "test-nsg1"
 }
 
 variable "route_table_name" {
   description = "The route table name will be created and associated to the newly subnet."
-  default     = "test-rt1"
 }
 
 # Security group rules arguments

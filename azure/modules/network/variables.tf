@@ -2,7 +2,6 @@
 
 variable "resource_group_name" {
   description = "Default resource group name that the network will be created in."
-  default = "myapp-rg"
 }
 
 variable "location" {
@@ -12,7 +11,6 @@ variable "location" {
 
 variable "vnet_name" {
   description = "Name of the vnet to create"
-  default = "acctvnet"
 }
 
 variable "address_space" {
@@ -34,17 +32,17 @@ variable "subnet_prefixes" {
 
 variable "subnet_names" {
   description = "A list of public subnets inside the vNet."
-  default = ["subnet1"]
+  default = []
 }
 
 variable "nsg_names" {
   description = "A list of network security group names for each subnet inside the vNet."
-  default = ["nsg1"]
+  default = []
 }
 
 variable "route_table_names" {
   description = "A list of route table names for each subnet inside the vNet."
-  default = ["rt1"]
+  default = []
 }
 
 variable "nsg_rules" {

@@ -1,7 +1,6 @@
 # Network Security Group definition
 
 variable "resource_group_name" {
-  default     = "nsg_rg"
   description = "Name of the resource group"
 }
 
@@ -12,7 +11,6 @@ variable "location" {
 
 variable "security_group_name" {
   description = "Network security group name"
-  default     = "nsg"
 }
 
 variable "tags" {
