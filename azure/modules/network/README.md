@@ -1,5 +1,8 @@
 # terraform-modules-network #
 
+> __note: This module doesn't work with last terraform version. Waiting support "count" parameter for modules.__
+> [Support the count parameter for modules](https://github.com/hashicorp/terraform/issues/953)
+
 Create a basic network in Azure
 ==============================================================================
 
