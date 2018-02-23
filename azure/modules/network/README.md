@@ -14,6 +14,24 @@ Usage
 -----
 
 ```hcl
+module "network" {
+    source              = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/network"
+    resource_group_name = "test-resource-group"
+    location            = "eastus"
+    vnet_name           = "test-vnet"
+    address_space       = "10.0.0.0/16"
+    subnet_prefixes     = ["10.0.1.0/24", "10.0.2.0/24"]
+    subnet_names        = ["subnet1", "subnet2"]
+    nsg_names           = ["test-nsg1", "test-nsg2"]
+    route_table_names   = ["test-rt1", "test-rt2"]
+    nsg_rules           = {
+                            test-nsg1 = "$local.nsg1_rules"
+                            test-nsg2 = "$local.nsg2_rules"
+                          }
+    route_table_routes  = {
+                            test-rt1 = "$local.rt1_routes"
+                            test-rt2 = "$local.rt2_routes"
+                          }
 
 locals {
     nsg1_rules                     = [
@@ -63,24 +81,6 @@ locals {
     ]
 }
 
-module "network" {
-    source              = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/network"
-    resource_group_name = "test-resource-group"
-    location            = "eastus"
-    vnet_name           = "test-vnet"
-    address_space       = "10.0.0.0/16"
-    subnet_prefixes     = ["10.0.1.0/24", "10.0.2.0/24"]
-    subnet_names        = ["subnet1", "subnet2"]
-    nsg_names           = ["test-nsg1", "test-nsg2"]
-    route_table_names   = ["test-rt1", "test-rt2"]
-    nsg_rules           = {
-                            test-nsg1 = "$local.nsg1_rules"
-                            test-nsg2 = "$local.nsg2_rules"
-                          }
-    route_table_routes  = {
-                            test-rt1 = "$local.rt1_routes"
-                            test-rt2 = "$local.rt2_routes"
-                          }
 }
 ```
 
