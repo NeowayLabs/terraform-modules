@@ -36,7 +36,6 @@ resource "azurerm_virtual_machine" "virtual_machine" {
 
   os_profile {
     admin_username = "${var.bastion_admin_username}"
-    admin_password = ""
     computer_name  = "${var.env}-bastion-vm"
   }
 
