@@ -11,8 +11,7 @@ The resources below will be created:
  * public subnet
  * public NSG
  * public route table
- * bastion host
- * NAT host
+ * bastion + NAT host
 
 Usage
 -----
@@ -20,16 +19,16 @@ Usage
 ```hcl
 module "public" {
     source               = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/public-network"
-    resource_group_name  = "test-public-rg"
+    env                  = "qa"
     location             = "eastus"
-    vnet_name            = "test-vnet"
     vnet_address_space   = ["10.0.0.0/16"]
     subnet_prefix        = "10.0.1.0/24"
-    subnet_name          = "test-public-subnet"
-    security_group_name  = "test-public-nsg"
-    route_table_name     = "test-public-rt"
     security_group_rules = "${local.nsg_rules}"
     route_table_routes   = "${local.rt_routes}"
+
+    bastion_private_ip_address = "10.141.1.150"
+    bastion_admin_username     = "bootstrap"
+    bastion_public_ssh_key     = "${file("~/.ssh/id_rsa.pub")}"
 }
 
 locals {

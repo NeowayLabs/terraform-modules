@@ -43,3 +43,8 @@ output "public_network_route_table_id" {
   value       = "${module.subnet.subnet_route_table_id}"
 }
 
+output "public_network_bastion_vm_id" {
+  description = "The bastion virtual machine ID"
+  value       = "${azurerm_virtual_machine.virtual_machine.id}"
+}
+
