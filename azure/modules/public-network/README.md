@@ -23,7 +23,7 @@ module "public" {
     resource_group_name  = "test-public-rg"
     location             = "eastus"
     vnet_name            = "test-vnet"
-    vnet_address_space   = "10.0.0.0/16"
+    vnet_address_space   = ["10.0.0.0/16"]
     subnet_prefix        = "10.0.1.0/24"
     subnet_name          = "test-public-subnet"
     security_group_name  = "test-public-nsg"

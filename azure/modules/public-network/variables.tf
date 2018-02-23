@@ -16,8 +16,8 @@ variable "vnet_name" {
 }
 
 variable "vnet_address_space" {
-  description = "The address space that is used by the virtual network."
-  default     = "10.0.0.0/16"
+  description = "A list of address space that will be used by the virtual network."
+  default     = "[10.0.0.0/16]"
 }
 
 variable "subnet_name" {

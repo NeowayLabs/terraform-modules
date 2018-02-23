@@ -9,7 +9,7 @@ output "vnet_name" {
 }
 
 output "vnet_address_space" {
-  description = "The address space of the newly created vNet"
+  description = "A list of address space of the newly created vNet"
   value       = "${module.vnet.vnet_address_space}"
 }
 
