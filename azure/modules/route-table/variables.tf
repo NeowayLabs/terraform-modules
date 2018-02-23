@@ -1,7 +1,6 @@
 # Route Table definition
 
 variable "resource_group_name" {
-  default     = "rt_rg"
   description = "Name of the resource group"
 }
 
@@ -12,7 +11,6 @@ variable "location" {
 
 variable "route_table_name" {
   description = "Route Table name"
-  default     = "rt"
 }
 
 variable "tags" {
