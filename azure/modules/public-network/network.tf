@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "public" {
 }
 
 module "vnet" {
-    source              = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/vnet?ref=public-network"
+    source              = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/vnet"
     resource_group_name = "${azurerm_resource_group.public.name}"
     location            = "${azurerm_resource_group.public.location}"
     vnet_name           = "${var.env}-vnet"
