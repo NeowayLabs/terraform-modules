@@ -1,4 +1,8 @@
 
+provider "azurerm" {
+  version = "~> 1.1"
+}
+
 resource "azurerm_resource_group" "public" {
   name     = "${var.env}-network"
   location = "${var.location}"
