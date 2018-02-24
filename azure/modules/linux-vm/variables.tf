@@ -90,12 +90,12 @@ variable "enable_accelerated_networking" {
 
 variable "private_ip_address_allocation" {
   description = "Defines how an IP address is assigned. Options are Static or Dynamic."
-  default     = "dynamic"
+  default     = "Dynamic"
 }
 
 variable "private_ip_address_list" {
   description = "A list of static IP address."
-  default = []
+  default = [""]
 }
 
 variable "delete_os_disk_on_termination" {
