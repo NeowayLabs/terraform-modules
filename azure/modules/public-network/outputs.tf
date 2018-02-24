@@ -45,6 +45,16 @@ output "public_network_route_table_id" {
 
 output "public_network_bastion_vm_id" {
   description = "The bastion virtual machine ID"
-  value       = "${azurerm_virtual_machine.virtual_machine.id}"
+  value       = "${module.bastion.vm_ids[0]}"
+}
+
+output "public_network_bastion_private_ip" {
+  description = "The bastion private ip address"
+  value       = "${module.bastion.network_interface_private_ip}"
+}
+
+output "public_network_bastion_avset_id" {
+  description = "The bastion availability set id"
+  value       = "${module.bastion.availability_set_id}"
 }
 

@@ -10,19 +10,14 @@ variable "subnet_id" {
   description = "The subnet id of the virtual network where the virtual machines will reside."
 }
 
-variable "ssh_key" {
-  description = "Path to the public key to be used for ssh access to the VM.  Only used with non-Windows vms and can be left as-is even if using Windows vms. If specifying a path to a certification on a Windows machine to provision a linux vm use the / in the path versus backslash. e.g. c:/home/id_rsa.pub"
-  default     = "~/.ssh/id_rsa.pub"
-}
-
 variable "admin_username" {
   description = "The admin username of the VM that will be deployed"
   default     = "bootstrap"
 }
 
-variable "os_sa_type" {
-  description = "Defines the type of storage account to be created. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS."
-  default     = "Premium_LRS"
+variable "ssh_key" {
+  description = "Path to the public key to be used for ssh access to the VM.  Only used with non-Windows vms and can be left as-is even if using Windows vms. If specifying a path to a certification on a Windows machine to provision a linux vm use the / in the path versus backslash. e.g. c:/home/id_rsa.pub"
+  default     = "~/.ssh/id_rsa.pub"
 }
 
 variable "vm_size" {
@@ -38,6 +33,11 @@ variable "nb_instances" {
 variable "vm_hostname" {
   description = "local name of the VM"
   default     = "myvm"
+}
+
+variable "os_sa_type" {
+  description = "Defines the type of storage account to be created. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS."
+  default     = "Premium_LRS"
 }
 
 variable "vm_os_simple" {
@@ -89,8 +89,8 @@ variable "enable_accelerated_networking" {
 }
 
 variable "private_ip_address_allocation" {
-  description = "Defines how an IP address is assigned. Options are Static or Dynamic."
-  default     = "Dynamic"
+  description = "Defines how an IP address is assigned. Options are static or dynamic."
+  default     = "dynamic"
 }
 
 variable "private_ip_address_list" {

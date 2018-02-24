@@ -29,3 +29,24 @@ module "subnet" {
     route_table_routes   = "${var.route_table_routes}"
 }
 
+module "bastion" {
+    source                        = "../../modules/linux-vm"
+    resource_group_name           = "${azurerm_resource_group.public.name}"
+    location                      = "${azurerm_resource_group.public.location}"
+    subnet_id                     = "${module.subnet.subnet_id}"
+    vm_hostname                   = "${var.env}-bastion"
+    vm_os_simple                  = "${var.bastion_os_simple}"
+    vm_size                       = "${var.bastion_virtual_machine_instance_size}"
+    avset_update_domain_count     = "${var.bastion_avset_update_domain_count}"
+    avset_fault_domain_count      = "${var.bastion_avset_fault_domain_count}"
+    enable_ip_forwarding          = "true"
+    private_ip_address_allocation = "static"
+    private_ip_address_list       = ["${var.bastion_private_ip_address}"]
+    admin_username                = "${var.bastion_admin_username}"
+    ssh_key                       = "${var.bastion_public_ssh_key}"
+    tags                          = {
+                                      env  = "${var.env}"
+                                      role = "bastion"
+                                    }
+}
+

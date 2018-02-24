@@ -39,23 +39,18 @@ variable "route_table_routes" {
   default = []
 }
 
-variable "bastion_platform_fault_domain_count" {
+variable "bastion_avset_fault_domain_count" {
   description = "number of update domains to bastion virtual machines"
-  default = "1"
+  default = "2"
 }
 
-variable "bastion_platform_update_domain_count" {
+variable "bastion_avset_update_domain_count" {
   description = "number of fault domains to bastion virtual machines"
-  default = "1"
+  default = "2"
 }
 
 variable "bastion_private_ip_address" {
   description = "private ip address to bastion instance"
-}
-
-variable "bastion_virtual_machine_disk_size" {
-  description = "disk size to bastion virtual machine"
-  default = "31"
 }
 
 variable "bastion_virtual_machine_instance_size" {
@@ -63,24 +58,9 @@ variable "bastion_virtual_machine_instance_size" {
   default = "Standard_DS2_v2"
 }
 
-variable "bastion_image_publisher" {
-  description = "publisher image to bastion virtual machine"
-  default = "Canonical"
-}
-
-variable "bastion_image_offer" {
-  description = "offer image to bastion virtual machine"
-  default = "UbuntuServer"
-}
-
-variable "bastion_image_sku" {
-  description = "sku image to bastion virtual machine"
-  default = "16.04-LTS"
-}
-
-variable "bastion_image_version" {
-  description = "version image to bastion virtual machine"
-  default = "latest"
+variable "bastion_os_simple" {
+  description = "Specify UbuntuServer, RHEL, openSUSE-Leap, CentOS, Debian, CoreOS and SLES to get the latest image version of the specified os.  Do not provide this value if a custom value is used for vm_os_publisher, vm_os_offer, and vm_os_sku."
+  default     = "UbuntuServer"
 }
 
 variable "bastion_admin_username" {
