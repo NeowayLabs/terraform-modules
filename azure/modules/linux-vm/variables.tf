@@ -103,12 +103,12 @@ variable "delete_os_disk_on_termination" {
   default     = "true"
 }
 
-variable "availability_set_update_domain_count" {
+variable "avset_update_domain_count" {
   description = "Specifies the number of update domains that are used. Defaults to 5."
   default = "5"
 }
 
-variable "availability_set_fault_domain_count" {
+variable "avset_fault_domain_count" {
   description = "Specifies the number of fault domains that are used. Defaults to 3."
   default = "3"
 }
