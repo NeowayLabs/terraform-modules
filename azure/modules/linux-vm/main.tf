@@ -1,5 +1,5 @@
 provider "azurerm" {
-  version = "~> 0.3"
+  version = "~> 1.1"
 }
 
 provider "random" {
@@ -36,8 +36,8 @@ resource "azurerm_storage_account" "vm-sa" {
 }
 
 resource "azurerm_virtual_machine" "vm-linux" {
-  count                         = "var.data_disk == "false" ? var.nb_instances : 0}"
-  name                          = "${var.vm_hostname}${count.index}"
+  count                         = "${var.data_disk == "false" ? var.nb_instances : 0}"
+  name                          = "${var.vm_hostname}-vm${var.nb_instances == 0 ? "" : "-${count.index}"}"
   location                      = "${var.location}"
   resource_group_name           = "${azurerm_resource_group.vm.name}"
   availability_set_id           = "${azurerm_availability_set.vm.id}"
@@ -54,14 +54,14 @@ resource "azurerm_virtual_machine" "vm-linux" {
   }
 
   storage_os_disk {
-    name              = "osdisk-${var.vm_hostname}-${count.index}"
+    name              = "${var.vm_hostname}-vm${var.nb_instances == 0 ? "" : "-${count.index}"}-osdisk"
     create_option     = "FromImage"
     caching           = "ReadWrite"
-    managed_disk_type = "${var.storage_account_type}"
+    managed_disk_type = "${var.os_sa_type}"
   }
 
   os_profile {
-    computer_name  = "${var.vm_hostname}${count.index}"
+    computer_name  = "${var.vm_hostname}${var.nb_instances == 0 ? "" : "-${count.index}"}"
     admin_username = "${var.admin_username}"
   }
 
@@ -84,7 +84,7 @@ resource "azurerm_virtual_machine" "vm-linux" {
 
 resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
   count                         = "${var.data_disk == "true" ? var.nb_instances : 0}"
-  name                          = "${var.vm_hostname}${count.index}"
+  name                          = "${var.vm_hostname}-vm${var.nb_instances == 0 ? "" : "-${count.index}"}"
   location                      = "${var.location}"
   resource_group_name           = "${azurerm_resource_group.vm.name}"
   availability_set_id           = "${azurerm_availability_set.vm.id}"
@@ -101,22 +101,24 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
   }
 
   storage_os_disk {
-    name              = "osdisk-${var.vm_hostname}-${count.index}"
+    name              = "${var.vm_hostname}-vm${var.nb_instances == 0 ? "" : "-${count.index}"}-osdisk"
+    managed_disk_type = "${var.os_sa_type}"
     create_option     = "FromImage"
     caching           = "ReadWrite"
-    managed_disk_type = "${var.storage_account_type}"
   }
 
   storage_data_disk {
-    name              = "datadisk-${var.vm_hostname}-${count.index}"
-    create_option     = "Empty"
-    lun               = 0
-    disk_size_gb      = "${var.data_disk_size_gb}"
-    managed_disk_type = "${var.data_sa_type}"
+    name                             = "${var.vm_hostname}-vm${var.nb_instances == 0 ? "" : "-${count.index}"}-datadisk"
+    managed_disk_type                = "${var.data_sa_type}"
+    create_option                    = "Empty"
+    disk_size_gb                     = "${var.data_disk_size_gb}"
+    caching                          = "${var.data_disk_caching}"
+    lun                              = 0
+    delete_data_disks_on_termination = false
   }
 
   os_profile {
-    computer_name  = "${var.vm_hostname}${count.index}"
+    computer_name  = "${var.vm_hostname}${var.nb_instances == 0 ? "" : "-${count.index}"}"
     admin_username = "${var.admin_username}"
   }
 
@@ -138,23 +140,25 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
 }
 
 resource "azurerm_availability_set" "vm" {
-  name                         = "${var.vm_hostname}-avset"
+  name                         = "${var.vm_hostname}-availset"
   location                     = "${azurerm_resource_group.vm.location}"
   resource_group_name          = "${azurerm_resource_group.vm.name}"
-  platform_fault_domain_count  = 2
-  platform_update_domain_count = 2
+  platform_update_domain_count = "${var.availability_set_update_domain_count}"
+  platform_fault_domain_count  = "${var.availability_set_fault_domain_count}"
   managed                      = true
 }
 
 resource "azurerm_network_interface" "vm" {
   count                     = "${var.nb_instances}"
-  name                      = "nic-${var.vm_hostname}-${count.index}"
+  name                      = "${var.vm_hostname}-nic${var.nb_instances == 0 ? "" : "-${count.index}"}"
   location                  = "${azurerm_resource_group.vm.location}"
   resource_group_name       = "${azurerm_resource_group.vm.name}"
+  enable_ip_forwarding      = "${var.enable_ip_forwarding}"
 
   ip_configuration {
-    name                          = "ipconfig${count.index}"
+    name                          = "default-ip-config"
     subnet_id                     = "${var.vnet_subnet_id}"
+    private_ip_address            = "${element(var.private_ip_address_list,count.index)}"
     private_ip_address_allocation = "Dynamic"
   }
 }

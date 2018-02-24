@@ -20,7 +20,7 @@ variable "admin_username" {
   default     = "bootstrap"
 }
 
-variable "storage_account_type" {
+variable "os_sa_type" {
   description = "Defines the type of storage account to be created. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS."
   default     = "Premium_LRS"
 }
@@ -78,24 +78,54 @@ variable "tags" {
   }
 }
 
+variable "enable_ip_forwarding" {
+  description = "Enables IP Forwarding on the NIC. Defaults to false."
+  default = "false"
+}
+
+variable "enable_accelerated_networking" {
+  description = "Enables Azure Accelerated Networking using SR-IOV. Only certain VM instance sizes are supported. Defaults to false."
+  default = "false"
+}
+
 variable "private_ip_address_allocation" {
   description = "Defines how an IP address is assigned. Options are Static or Dynamic."
   default     = "dynamic"
 }
 
+variable "private_ip_address_list" {
+  description = "A list of static IP address."
+  default = []
+}
+
 variable "delete_os_disk_on_termination" {
   description = "Delete datadisk when machine is terminated"
-  default     = "false"
+  default     = "true"
+}
+
+variable "availability_set_update_domain_count" {
+  description = "Specifies the number of update domains that are used. Defaults to 5."
+  default = "5"
+}
+
+variable "availability_set_fault_domain_count" {
+  description = "Specifies the number of fault domains that are used. Defaults to 3."
+  default = "3"
 }
 
 variable "data_sa_type" {
-  description = "Data Disk Storage Account type"
-  default     = "Standard_LRS"
+  description = "Defines the type of storage account to be created for data disk. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS."
+  default     = "Premium_LRS"
 }
 
 variable "data_disk_size_gb" {
-  description = "Storage data disk size size"
+  description = "Storage data disk size"
   default     = ""
+}
+
+variable "data_disk_caching" {
+  description = "Specifies the caching requirements for storage data disk"
+  default     = "ReadWrite"
 }
 
 variable "data_disk" {
