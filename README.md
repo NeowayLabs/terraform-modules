@@ -10,4 +10,5 @@ Basic Azure Modules:
  * [nsg](./azure/modules/nsg/README.md)
  * [route-table](./azure/modules/route-table/README.md)
  * [subnet](./azure/modules/subnet/README.md)
+ * [linux-vm](./azure/modules/linux-vm/README.md)
 

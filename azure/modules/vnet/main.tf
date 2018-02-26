@@ -1,4 +1,7 @@
-#Azure Generic vNet Module
+provider "azurerm" {
+  version = "~> 1.1"
+}
+
 resource "azurerm_resource_group" "vnet" {
   name     = "${var.resource_group_name}"
   location = "${var.location}"

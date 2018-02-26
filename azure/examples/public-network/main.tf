@@ -10,7 +10,7 @@ module "public" {
 
     bastion_private_ip_address = "10.31.1.150"
     bastion_admin_username     = "bootstrap"
-    bastion_public_ssh_key     = "${file("~/.ssh/id_rsa.pub")}"
+    bastion_public_ssh_key     = "~/.ssh/id_rsa.pub"
 }
 
 locals {
