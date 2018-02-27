@@ -2,14 +2,14 @@
 module "vnet" {
     source              = "../../modules/vnet"
     resource_group_name = "test-network"
-    location            = "eastus"
+    location            = "eastus2"
     vnet_name           = "test-vnet"
     address_space       = ["10.31.0.0/16"]
 }
 
 module "elastic" {
     source               = "../../modules/elastic"
-    location             = "eastus"
+    location             = "eastus2"
     env                  = "test"
     name                 = "es5"
     vnet_name            = "test-vnet"
