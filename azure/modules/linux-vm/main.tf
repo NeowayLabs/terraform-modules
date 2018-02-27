@@ -15,7 +15,6 @@ resource "azurerm_resource_group" "vm" {
   count    = "${var.nb_instances > 0 ? "1" : "0"}"
   name     = "${var.resource_group_name}"
   location = "${var.location}"
-  tags     = "${var.tags}"
 }
 
 resource "random_id" "vm-sa" {
