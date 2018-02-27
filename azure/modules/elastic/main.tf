@@ -88,7 +88,7 @@ module "rack_2_data" {
     resource_group_name           = "${azurerm_resource_group.elastic.name}"
     location                      = "${azurerm_resource_group.elastic.location}"
     subnet_id                     = "${module.subnet.subnet_id}"
-    vm_hostname                   = "${var.env}-${var.name}-data"
+    vm_hostname                   = "${var.env}-${var.name}-rack-2-data"
     nb_instances                  = "${var.rack_2_data_nb_instances}"
     vm_os_simple                  = "UbuntuServer"
     vm_size                       = "${var.data_vm_size}"
