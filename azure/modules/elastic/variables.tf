@@ -18,6 +18,10 @@ variable "vnet_name" {
   description = "Name of the vnet to associate."
 }
 
+variable "vnet_resource_group" {
+  description = "Resource group name that the virtual network was provisioned in."
+}
+
 variable "subnet_prefix" {
   description = "The address prefix to use for the subnet."
 }

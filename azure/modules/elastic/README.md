@@ -29,6 +29,7 @@ module "elastic" {
     env                  = "qa"
     name                 = "es5"
     vnet_name            = "qa-vnet"
+	vnet_resource_group  = "qa-network"
     subnet_prefix        = "10.0.10.0/24"
     security_group_rules = "${local.nsg_rules}"
     route_table_routes   = "${local.rt_routes}"

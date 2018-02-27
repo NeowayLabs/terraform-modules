@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "elastic" {
 
 module "subnet" {
     source               = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/subnet"
-    resource_group_name  = "${azurerm_resource_group.elastic.name}"
+    resource_group_name  = "${var.vnet_resource_group}"
     location             = "${azurerm_resource_group.elastic.location}"
     vnet_name            = "${var.vnet_name}"
     subnet_name          = "${var.env}-${var.name}-subnet"

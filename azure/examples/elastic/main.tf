@@ -1,7 +1,7 @@
 
 module "vnet" {
     source              = "../../modules/vnet"
-    resource_group_name = "test-network-rg"
+    resource_group_name = "test-network"
     location            = "eastus"
     vnet_name           = "test-vnet"
     address_space       = ["10.31.0.0/16"]
@@ -13,6 +13,7 @@ module "elastic" {
     env                  = "test"
     name                 = "es5"
     vnet_name            = "test-vnet"
+    vnet_resource_group  = "test-network"
     subnet_prefix        = "10.31.10.0/24"
     security_group_rules = "${local.nsg_rules}"
     route_table_routes   = "${local.rt_routes}"
