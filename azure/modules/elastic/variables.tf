@@ -5,10 +5,6 @@ variable "env" {
   default = "test"
 }
 
-variable "resource_group_name" {
-  description = "The name of the resource group in which the resources will be created"
-}
-
 variable "location" {
   description = "The location/region where the virtual network is created. Changing this forces a new resource to be created."
   default = "eastus2"
@@ -38,12 +34,12 @@ variable "route_table_routes" {
   default = []
 }
 
-variable "admin_username" {
-  description = "The admin username of the VM that will be deployed"
+variable "elastic_username" {
+  description = "The elastic username of the VM that will be deployed"
   default     = "bootstrap"
 }
 
-variable "ssh_key" {
+variable "elastic_public_ssh_key" {
   description = "Path to the public key to be used for ssh access to the VM.  Only used with non-Windows vms and can be left as-is even if using Windows vms. If specifying a path to a certification on a Windows machine to provision a linux vm use the / in the path versus backslash. e.g. c:/home/id_rsa.pub"
   default     = "~/.ssh/id_rsa.pub"
 }
@@ -87,11 +83,11 @@ variable "rack_1_data_nb_instances" {
   description = "Specify the number of instances of data node in rack 1."
 }
 
-variable "rack1_avset_update_domain_count" {
+variable "rack_1_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 1."
 }
 
-variable "rack1_avset_fault_domain_count" {
+variable "rack_1_data_avset_fault_domain_count" {
   description = "Specifies the number of fault domains that are used for rack 1."
 }
 
@@ -100,11 +96,13 @@ variable "rack_2_data_nb_instances" {
   default = "0"
 }
 
-variable "rack2_avset_update_domain_count" {
+variable "rack_2_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 2."
+  default = "10"
 }
 
-variable "rack2_avset_fault_domain_count" {
+variable "rack_2_data_avset_fault_domain_count" {
   description = "Specifies the number of fault domains that are used for rack 2."
+  default = "2"
 }
 

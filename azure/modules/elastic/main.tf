@@ -34,7 +34,7 @@ module "master" {
     avset_fault_domain_count      = "3"
     private_ip_address_allocation = "static"
     private_ip_address_list       = "${var.master_private_ip_address}"
-    admin_username                = "${var.elastic_admin_username}"
+    admin_username                = "${var.elastic_username}"
     ssh_key                       = "${var.elastic_public_ssh_key}"
     tags                          = {
                                       env  = "${var.env}"
@@ -55,7 +55,7 @@ module "client" {
     avset_fault_domain_count      = "3"
     private_ip_address_allocation = "static"
     private_ip_address_list       = "${var.client_private_ip_address}"
-    admin_username                = "${var.elastic_admin_username}"
+    admin_username                = "${var.elastic_username}"
     ssh_key                       = "${var.elastic_public_ssh_key}"
     tags                          = {
                                       env  = "${var.env}"
@@ -63,7 +63,7 @@ module "client" {
                                     }
 }
 
-module "rack1-data" {
+module "rack_1_data" {
     source                        = "../../modules/linux-vm"
     resource_group_name           = "${azurerm_resource_group.elastic.name}"
     location                      = "${azurerm_resource_group.elastic.location}"
@@ -75,7 +75,7 @@ module "rack1-data" {
     avset_update_domain_count     = "${var.rack_1_data_avset_update_domain_count}"
     avset_fault_domain_count      = "${var.rack_1_data_avset_fault_domain_count}"
     private_ip_address_allocation = "dynamic"
-    admin_username                = "${var.elastic_admin_username}"
+    admin_username                = "${var.elastic_username}"
     ssh_key                       = "${var.elastic_public_ssh_key}"
     tags                          = {
                                       env  = "${var.env}"
@@ -83,7 +83,7 @@ module "rack1-data" {
                                     }
 }
 
-module "rack2-data" {
+module "rack_2_data" {
     source                        = "../../modules/linux-vm"
     resource_group_name           = "${azurerm_resource_group.elastic.name}"
     location                      = "${azurerm_resource_group.elastic.location}"
@@ -95,7 +95,7 @@ module "rack2-data" {
     avset_update_domain_count     = "${var.rack_2_data_avset_update_domain_count}"
     avset_fault_domain_count      = "${var.rack_2_data_avset_fault_domain_count}"
     private_ip_address_allocation = "dynamic"
-    admin_username                = "${var.elastic_admin_username}"
+    admin_username                = "${var.elastic_username}"
     ssh_key                       = "${var.elastic_public_ssh_key}"
     tags                          = {
                                       env  = "${var.env}"

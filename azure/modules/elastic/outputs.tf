@@ -16,12 +16,12 @@ output "subnet_prefix" {
 
 output "subnet_nsg_id" {
   description = "The id of NSG created and associated to the newly subnet"
-  value       = "${module.nsg.network_security_group_id}"
+  value       = "${module.subnet.subnet_nsg_id}"
 }
 
 output "subnet_route_table_id" {
   description = "The id of route table created and associated to the newly subnet"
-  value       = "${module.route_table.route_table_id}"
+  value       = "${module.subnet.subnet_route_table_id}"
 }
 
 output "master_vm_ids" {
@@ -36,12 +36,12 @@ output "client_vm_ids" {
 
 output "rack_1_data_vm_ids" {
   description = "Data virtual machine ids created in rack 1."
-  value       = "${module.rack1-data.vm_ids}"
+  value       = "${module.rack_1_data.vm_ids}"
 }
 
 output "rack_2_data_vm_ids" {
   description = "Data virtual machine ids created in rack 2."
-  value       = "${module.rack2-data.vm_ids}"
+  value       = "${module.rack_2_data.vm_ids}"
 }
 
 output "master_network_interface_ids" {
@@ -56,12 +56,12 @@ output "client_network_interface_ids" {
 
 output "rack_1_data_network_interface_ids" {
   description = "ids of the data vm nics provisoned in rack 1."
-  value       = "${module.rack1-data.network_interface_ids}"
+  value       = "${module.rack_1_data.network_interface_ids}"
 }
 
 output "rack_2_data_network_interface_ids" {
   description = "ids of the data vm nics provisoned in rack 2."
-  value       = "${module.rack1-data.network_interface_ids}"
+  value       = "${module.rack_1_data.network_interface_ids}"
 }
 
 output "master_network_interface_private_ip" {

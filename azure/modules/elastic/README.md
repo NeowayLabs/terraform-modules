@@ -43,7 +43,7 @@ module "elastic" {
     rack_1_data_avset_update_domain_count = "10"
     rack_1_data_avset_fault_domain_count  = "2"
 
-    elastic_admin_username = "bootstrap"
+    elastic_username       = "bootstrap"
     elastic_public_ssh_key = "~/.ssh/id_rsa.pub"
 }
 
