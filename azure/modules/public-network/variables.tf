@@ -1,4 +1,4 @@
-# Subnet definition
+# public network definition
 
 variable "env" {
   description = "Environment to orchestrate. This name will be use with a prefix for resource group, subnet, nsg, route table names"
