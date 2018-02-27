@@ -12,12 +12,14 @@ module "os" {
 }
 
 resource "azurerm_resource_group" "vm" {
+  count    = "${var.nb_instances > 0 ? "1" : "0"}"
   name     = "${var.resource_group_name}"
   location = "${var.location}"
   tags     = "${var.tags}"
 }
 
 resource "random_id" "vm-sa" {
+  count   = "${var.nb_instances > 0 ? "1" : "0"}"
   keepers = {
     vm_hostname = "${var.vm_hostname}"
   }
@@ -140,6 +142,7 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
 }
 
 resource "azurerm_availability_set" "vm" {
+  count                        = "${var.nb_instances > 0 ? "1" : "0"}"
   name                         = "${var.vm_hostname}-availset"
   location                     = "${azurerm_resource_group.vm.location}"
   resource_group_name          = "${azurerm_resource_group.vm.name}"
