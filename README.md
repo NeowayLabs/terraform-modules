@@ -4,6 +4,7 @@ This project has common terraform modules. You can use this modules to build you
 
 Neoway Azure Modules:
  * [public-network](./azure/modules/public-network/README.md)
+ * [elastic](./azure/modules/elastic/README.md)
 
 Basic Azure Modules:
  * [vnet](./azure/modules/vnet/README.md)
