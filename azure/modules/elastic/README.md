@@ -24,15 +24,15 @@ Usage
 
 ```hcl
 module "elastic" {
-    source               = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/elastic"
-    location             = "eastus"
-    env                  = "qa"
-    name                 = "es5"
-    vnet_name            = "qa-vnet"
-	vnet_resource_group  = "qa-network"
-    subnet_prefix        = "10.0.10.0/24"
-    security_group_rules = "${local.nsg_rules}"
-    route_table_routes   = "${local.rt_routes}"
+    source                = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/elastic"
+    location              = "eastus"
+    env                   = "qa"
+    name                  = "es5"
+    vnet_name             = "qa-vnet"
+	vnet_resource_group   = "qa-network"
+    subnet_address_prefix = "10.0.10.0/24"
+    security_group_rules  = "${local.nsg_rules}"
+    route_table_routes    = "${local.rt_routes}"
 
     master_nb_instances       = "3"
     master_private_ip_address = ["10.0.10.10","10.0.10.11","10.0.10.12"]
@@ -44,7 +44,7 @@ module "elastic" {
     rack_1_data_avset_update_domain_count = "10"
     rack_1_data_avset_fault_domain_count  = "2"
 
-    elastic_username       = "bootstrap"
+    elastic_username       = "elastic"
     elastic_public_ssh_key = "~/.ssh/id_rsa.pub"
 }
 

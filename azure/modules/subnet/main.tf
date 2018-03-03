@@ -11,7 +11,7 @@ resource "azurerm_subnet" "subnet" {
   name                      = "${var.subnet_name}"
   virtual_network_name      = "${var.vnet_name}"
   resource_group_name       = "${azurerm_resource_group.subnet.name}"
-  address_prefix            = "${var.subnet_prefix}"
+  address_prefix            = "${var.subnet_address_prefix}"
   network_security_group_id = "${module.nsg.network_security_group_id}"
   route_table_id            = "${module.route_table.route_table_id}"
 }

@@ -8,7 +8,7 @@ output "subnet_name" {
   value       = "${azurerm_subnet.subnet.name}"
 }
 
-output "subnet_prefix" {
+output "subnet_address_prefix" {
   description = "The address prefix for the newly created subnet"
   value       = "${azurerm_subnet.subnet.address_prefix}"
 }

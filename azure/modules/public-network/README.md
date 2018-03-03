@@ -18,13 +18,13 @@ Usage
 
 ```hcl
 module "public" {
-    source               = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/public-network"
-    env                  = "qa"
-    location             = "eastus"
-    vnet_address_space   = ["10.0.0.0/16"]
-    subnet_prefix        = "10.0.1.0/24"
-    security_group_rules = "${local.nsg_rules}"
-    route_table_routes   = "${local.rt_routes}"
+    source                = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/public-network"
+    env                   = "qa"
+    location              = "eastus"
+    vnet_address_space    = ["10.0.0.0/16"]
+    subnet_address_prefix = "10.0.1.0/24"
+    security_group_rules  = "${local.nsg_rules}"
+    route_table_routes    = "${local.rt_routes}"
 
     bastion_private_ip_address = "10.141.1.150"
     bastion_admin_username     = "bootstrap"

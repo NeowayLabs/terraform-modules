@@ -8,19 +8,19 @@ resource "azurerm_resource_group" "network" {
 }
 
 module "vnet" {
-  source              = "../../modules/vnet"
-  vnet_name           = "${var.vnet_name}"
-  resource_group_name = "${azurerm_resource_group.network.name}"
-  location            = "${var.location}"
-  address_space       = "${var.address_space}"
-  dns_servers         = "${var.dns_servers}"
-  subnet_prefixes     = "${var.subnet_prefixes}"
-  subnet_names        = "${var.subnet_names}"
-  tags                = "${var.tags}"
+  source                  = "../../modules/vnet"
+  vnet_name               = "${var.vnet_name}"
+  resource_group_name     = "${azurerm_resource_group.network.name}"
+  location                = "${var.location}"
+  address_space           = "${var.address_space}"
+  dns_servers             = "${var.dns_servers}"
+  subnet_address_prefixes = "${var.subnet_address_prefixes}"
+  subnet_names            = "${var.subnet_names}"
+  tags                    = "${var.tags}"
 
-  nsg_ids             = "${zipmap(var.subnet_names, module.nsg.*.network_security_group_id)}"
+  nsg_ids                 = "${zipmap(var.subnet_names, module.nsg.*.network_security_group_id)}"
 
-  route_table_ids     = "${zipmap(var.subnet_names, module.route_table.*.route_table_id)}"
+  route_table_ids         = "${zipmap(var.subnet_names, module.route_table.*.route_table_id)}"
 }
 
 module "nsg" {

@@ -1,22 +1,22 @@
 
 module "network" {
-    source              = "../../modules/network"
-    resource_group_name = "test-rg"
-    location            = "eastus"
-    vnet_name           = "test-vnet"
-    address_space       = ["10.31.0.0/16"]
-    subnet_prefixes     = ["10.31.1.0/24", "10.31.2.0/24"]
-    subnet_names        = ["test-subnet1", "test-subnet2"]
-    nsg_names           = ["test-nsg1", "test-nsg2"]
-    route_table_names   = ["test-rt1", "test-rt2"]
-    nsg_rules           = {
-                            test-nsg1 = "$local.nsg1_rules"
-                            test-nsg2 = "$local.nsg2_rules"
-                          }
-    route_table_routes  = {
-                            test-rt1 = "$local.rt1_routes"
-                            test-rt2 = "$local.rt2_routes"
-                          }
+    source                  = "../../modules/network"
+    resource_group_name     = "test-rg"
+    location                = "eastus"
+    vnet_name               = "test-vnet"
+    address_space           = ["10.31.0.0/16"]
+    subnet_address_prefixes = ["10.31.1.0/24", "10.31.2.0/24"]
+    subnet_names            = ["test-subnet1", "test-subnet2"]
+    nsg_names               = ["test-nsg1", "test-nsg2"]
+    route_table_names       = ["test-rt1", "test-rt2"]
+    nsg_rules               = {
+                                test-nsg1 = "$local.nsg1_rules"
+                                test-nsg2 = "$local.nsg2_rules"
+                              }
+    route_table_routes      = {
+                                test-rt1 = "$local.rt1_routes"
+                                test-rt2 = "$local.rt2_routes"
+                              }
 }
 
 locals {

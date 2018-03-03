@@ -13,7 +13,7 @@ variable "vnet_name" {
   description = "Name of the vnet to associate."
 }
 
-variable "subnet_prefix" {
+variable "subnet_address_prefix" {
   description = "The address prefix to use for the subnet."
   default     = "10.0.1.0/24"
 }

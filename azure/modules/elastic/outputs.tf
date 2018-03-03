@@ -9,9 +9,9 @@ output "subnet_name" {
   value       = "${module.subnet.subnet_name}"
 }
 
-output "subnet_prefix" {
+output "subnet_address_prefix" {
   description = "The address prefix for the newly created subnet"
-  value       = "${module.subnet.subnet_prefix}"
+  value       = "${module.subnet.subnet_address_prefix}"
 }
 
 output "subnet_nsg_id" {

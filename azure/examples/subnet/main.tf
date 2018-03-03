@@ -12,16 +12,16 @@ module "vnet" {
 }
 
 module "subnet" {
-    source               = "../../modules/subnet"
-    resource_group_name  = "test-rg"
-    location             = "eastus"
-    vnet_name            = "test-vnet"
-    subnet_prefix        = "10.31.1.0/24"
-    subnet_name          = "test-subnet1"
-    security_group_name  = "test-nsg1"
-    route_table_name     = "test-rt1"
-    security_group_rules = "${local.nsg1_rules}"
-    route_table_routes   = "${local.rt1_routes}"
+    source                = "../../modules/subnet"
+    resource_group_name   = "test-rg"
+    location              = "eastus"
+    vnet_name             = "test-vnet"
+    subnet_address_prefix = "10.31.1.0/24"
+    subnet_name           = "test-subnet1"
+    security_group_name   = "test-nsg1"
+    route_table_name      = "test-rt1"
+    security_group_rules  = "${local.nsg1_rules}"
+    route_table_routes    = "${local.rt1_routes}"
 }
 
 locals {

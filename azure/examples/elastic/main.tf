@@ -8,15 +8,15 @@ module "vnet" {
 }
 
 module "elastic" {
-    source               = "../../modules/elastic"
-    location             = "eastus2"
-    env                  = "test"
-    name                 = "es5"
-    vnet_name            = "test-vnet"
-    vnet_resource_group  = "test-network"
-    subnet_prefix        = "10.31.10.0/24"
-    security_group_rules = "${local.nsg_rules}"
-    route_table_routes   = "${local.rt_routes}"
+    source                = "../../modules/elastic"
+    location              = "eastus2"
+    env                   = "test"
+    name                  = "es5"
+    vnet_name             = "test-vnet"
+    vnet_resource_group   = "test-network"
+    subnet_address_prefix = "10.31.10.0/24"
+    security_group_rules  = "${local.nsg_rules}"
+    route_table_routes    = "${local.rt_routes}"
 
     master_nb_instances       = "3"
     master_private_ip_address = ["10.31.10.10","10.31.10.11","10.31.10.12"]

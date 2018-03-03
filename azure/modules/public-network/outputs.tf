@@ -28,9 +28,9 @@ output "public_network_subnet_name" {
   value       = "${module.subnet.subnet_name}"
 }
 
-output "public_network_subnet_prefix" {
+output "public_network_subnet_address_prefix" {
   description = "The address prefix for the public subnet"
-  value       = "${module.subnet.subnet_prefix}"
+  value       = "${module.subnet.subnet_address_prefix}"
 }
 
 output "public_network_nsg_id" {

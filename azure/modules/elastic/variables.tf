@@ -22,7 +22,7 @@ variable "vnet_resource_group" {
   description = "Resource group name that the virtual network was provisioned in."
 }
 
-variable "subnet_prefix" {
+variable "subnet_address_prefix" {
   description = "The address prefix to use for the subnet."
 }
 

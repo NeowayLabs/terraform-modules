@@ -25,7 +25,7 @@ variable "dns_servers" {
   default = []
 }
 
-variable "subnet_prefixes" {
+variable "subnet_address_prefixes" {
   description = "The address prefix to use for the subnet."
   default = ["10.0.1.0/24"]
 }
