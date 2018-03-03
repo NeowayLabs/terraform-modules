@@ -89,10 +89,12 @@ variable "rack_1_data_nb_instances" {
 
 variable "rack_1_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 1."
+  default = "10"
 }
 
 variable "rack_1_data_avset_fault_domain_count" {
   description = "Specifies the number of fault domains that are used for rack 1."
+  default = "2"
 }
 
 variable "rack_2_data_nb_instances" {
