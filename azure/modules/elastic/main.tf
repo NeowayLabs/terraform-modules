@@ -103,3 +103,42 @@ module "rack_2_data" {
                                     }
 }
 
+module "rack_3_data" {
+    source                        = "../../modules/linux-vm"
+    resource_group_name           = "${azurerm_resource_group.elastic.name}"
+    location                      = "${azurerm_resource_group.elastic.location}"
+    subnet_id                     = "${module.subnet.subnet_id}"
+    vm_hostname                   = "${var.env}-${var.name}-rack-3-data"
+    nb_instances                  = "${var.rack_3_data_nb_instances}"
+    vm_os_simple                  = "UbuntuServer"
+    vm_size                       = "${var.data_vm_size}"
+    avset_update_domain_count     = "${var.rack_3_data_avset_update_domain_count}"
+    avset_fault_domain_count      = "${var.rack_3_data_avset_fault_domain_count}"
+    private_ip_address_allocation = "dynamic"
+    admin_username                = "${var.elastic_username}"
+    ssh_key                       = "${var.elastic_public_ssh_key}"
+    tags                          = {
+                                      env  = "${var.env}"
+                                      role = "${var.name}-rack-3-data"
+                                    }
+}
+
+module "rack_4_data" {
+    source                        = "../../modules/linux-vm"
+    resource_group_name           = "${azurerm_resource_group.elastic.name}"
+    location                      = "${azurerm_resource_group.elastic.location}"
+    subnet_id                     = "${module.subnet.subnet_id}"
+    vm_hostname                   = "${var.env}-${var.name}-rack-4-data"
+    nb_instances                  = "${var.rack_4_data_nb_instances}"
+    vm_os_simple                  = "UbuntuServer"
+    vm_size                       = "${var.data_vm_size}"
+    avset_update_domain_count     = "${var.rack_4_data_avset_update_domain_count}"
+    avset_fault_domain_count      = "${var.rack_4_data_avset_fault_domain_count}"
+    private_ip_address_allocation = "dynamic"
+    admin_username                = "${var.elastic_username}"
+    ssh_key                       = "${var.elastic_public_ssh_key}"
+    tags                          = {
+                                      env  = "${var.env}"
+                                      role = "${var.name}-rack-4-data"
+                                    }
+}

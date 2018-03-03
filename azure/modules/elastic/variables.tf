@@ -110,3 +110,33 @@ variable "rack_2_data_avset_fault_domain_count" {
   default = "2"
 }
 
+variable "rack_3_data_nb_instances" {
+  description = "Specify the number of instances of data node in rack 3."
+  default = "0"
+}
+
+variable "rack_3_data_avset_update_domain_count" {
+  description = "Specifies the number of update domains that are used for rack 3."
+  default = "10"
+}
+
+variable "rack_3_data_avset_fault_domain_count" {
+  description = "Specifies the number of fault domains that are used for rack 3."
+  default = "2"
+}
+
+variable "rack_4_data_nb_instances" {
+  description = "Specify the number of instances of data node in rack 4."
+  default = "0"
+}
+
+variable "rack_4_data_avset_update_domain_count" {
+  description = "Specifies the number of update domains that are used for rack 4."
+  default = "10"
+}
+
+variable "rack_4_data_avset_fault_domain_count" {
+  description = "Specifies the number of fault domains that are used for rack 4."
+  default = "2"
+}
+

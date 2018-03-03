@@ -18,6 +18,10 @@ The resources below will be created:
  * data nodes in rack 1
  * available set for data nodes in rack 2 (optional)
  * data nodes in rack 2 (optional)
+ * available set for data nodes in rack 3 (optional)
+ * data nodes in rack 3 (optional)
+ * available set for data nodes in rack 4 (optional)
+ * data nodes in rack 4 (optional)
 
 Usage
 -----
