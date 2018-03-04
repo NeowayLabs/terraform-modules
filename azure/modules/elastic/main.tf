@@ -9,10 +9,10 @@ resource "azurerm_resource_group" "elastic" {
 }
 
 module "subnet" {
-    source                = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/subnet"
-    resource_group_name   = "${var.vnet_resource_group}"
-    location              = "${azurerm_resource_group.elastic.location}"
+    source                = "../subnet"
+    location              = "${var.location}"
     vnet_name             = "${var.vnet_name}"
+    vnet_resource_group   = "${var.vnet_resource_group}"
     subnet_name           = "${var.env}-${var.name}-subnet"
     subnet_address_prefix = "${var.subnet_address_prefix}"
     security_group_name   = "${var.env}-${var.name}-security-group"
@@ -22,7 +22,7 @@ module "subnet" {
 }
 
 module "master" {
-    source                        = "../../modules/linux-vm"
+    source                        = "../linux-vm"
     resource_group_name           = "${azurerm_resource_group.elastic.name}"
     location                      = "${azurerm_resource_group.elastic.location}"
     subnet_id                     = "${module.subnet.subnet_id}"
@@ -43,7 +43,7 @@ module "master" {
 }
 
 module "client" {
-    source                        = "../../modules/linux-vm"
+    source                        = "../linux-vm"
     resource_group_name           = "${azurerm_resource_group.elastic.name}"
     location                      = "${azurerm_resource_group.elastic.location}"
     subnet_id                     = "${module.subnet.subnet_id}"
@@ -64,7 +64,7 @@ module "client" {
 }
 
 module "rack_1_data" {
-    source                        = "../../modules/linux-vm"
+    source                        = "../linux-vm"
     resource_group_name           = "${azurerm_resource_group.elastic.name}"
     location                      = "${azurerm_resource_group.elastic.location}"
     subnet_id                     = "${module.subnet.subnet_id}"
@@ -84,7 +84,7 @@ module "rack_1_data" {
 }
 
 module "rack_2_data" {
-    source                        = "../../modules/linux-vm"
+    source                        = "../linux-vm"
     resource_group_name           = "${azurerm_resource_group.elastic.name}"
     location                      = "${azurerm_resource_group.elastic.location}"
     subnet_id                     = "${module.subnet.subnet_id}"
@@ -104,7 +104,7 @@ module "rack_2_data" {
 }
 
 module "rack_3_data" {
-    source                        = "../../modules/linux-vm"
+    source                        = "../linux-vm"
     resource_group_name           = "${azurerm_resource_group.elastic.name}"
     location                      = "${azurerm_resource_group.elastic.location}"
     subnet_id                     = "${module.subnet.subnet_id}"
@@ -124,7 +124,7 @@ module "rack_3_data" {
 }
 
 module "rack_4_data" {
-    source                        = "../../modules/linux-vm"
+    source                        = "../linux-vm"
     resource_group_name           = "${azurerm_resource_group.elastic.name}"
     location                      = "${azurerm_resource_group.elastic.location}"
     subnet_id                     = "${module.subnet.subnet_id}"
