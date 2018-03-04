@@ -1,12 +1,12 @@
 # Subnet definition
 
-variable "resource_group_name" {
-  description = "Default resource group name that the subnet will be created in."
-}
-
 variable "location" {
   description = "The location/region where the subnet will be created. The full list of Azure regions can be found at https://azure.microsoft.com/regions"
   default     = "eastus2"
+}
+
+variable "vnet_resource_group" {
+  description = "Default resource group name that the subnet will be created in."
 }
 
 variable "vnet_name" {
