@@ -9,7 +9,7 @@ module "vnet" {
 
 module "subnet" {
     source                = "../../modules/subnet"
-    resource_group_name   = "test-network-rg"
+    vnet_resource_group   = "${module.vnet.vnet_resource_group}"
     location              = "eastus"
     vnet_name             = "test-vnet"
     subnet_address_prefix = "10.31.1.0/24"
@@ -21,7 +21,7 @@ module "subnet" {
 
 module "vm" {
     source               = "../../modules/linux-vm"
-    resource_group_name  = "test-service-rg"
+    resource_group_name  = "${module.vnet.vnet_resource_group}"
     location             = "eastus"
     subnet_id            = "${module.subnet.subnet_id}"
     vm_hostname          = "test-service"
