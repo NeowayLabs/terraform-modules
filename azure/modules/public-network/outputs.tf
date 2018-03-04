@@ -8,6 +8,11 @@ output "vnet_name" {
   value       = "${module.vnet.vnet_name}"
 }
 
+output "vnet_resource_group" {
+  description = "The resource group of the newly created vNet"
+  value       = "${module.vnet.vnet_resource_group}"
+}
+
 output "vnet_address_space" {
   description = "A list of address space of the newly created vNet"
   value       = "${module.vnet.vnet_address_space}"

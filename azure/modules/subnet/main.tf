@@ -12,7 +12,7 @@ resource "azurerm_subnet" "subnet" {
 }
 
 module "nsg" {
-  source              = "../../modules/nsg"
+  source              = "../nsg"
   vnet_resource_group = "${var.vnet_resource_group}"
   location            = "${var.location}"
   security_group_name = "${var.security_group_name}"
@@ -20,7 +20,7 @@ module "nsg" {
 }
 
 module "route_table" {
-  source              = "../../modules/route-table"
+  source              = "../route-table"
   vnet_resource_group = "${var.vnet_resource_group}"
   location            = "${var.location}"
   route_table_name    = "${var.route_table_name}"

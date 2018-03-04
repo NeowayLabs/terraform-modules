@@ -3,24 +3,19 @@ provider "azurerm" {
   version = "~> 1.1"
 }
 
-resource "azurerm_resource_group" "public" {
-  name     = "${var.env}-network"
-  location = "${var.location}"
-}
-
 module "vnet" {
-    source              = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/vnet"
-    resource_group_name = "${azurerm_resource_group.public.name}"
-    location            = "${azurerm_resource_group.public.location}"
+    source              = "../vnet"
+    location            = "${var.location}"
+    resource_group_name = "${var.env}-network"
     vnet_name           = "${var.env}-vnet"
     address_space       = "${var.vnet_address_space}"
 }
 
 module "subnet" {
-    source                = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/subnet"
-    resource_group_name   = "${azurerm_resource_group.public.name}"
-    location              = "${azurerm_resource_group.public.location}"
+    source                = "../subnet"
+    location              = "${var.location}"
     vnet_name             = "${module.vnet.vnet_name}"
+    vnet_resource_group   = "${module.vnet.vnet_resource_group}"
     subnet_name           = "${var.env}-public-subnet"
     subnet_address_prefix = "${var.subnet_address_prefix}"
     security_group_name   = "${var.env}-public-security-group"
@@ -30,9 +25,9 @@ module "subnet" {
 }
 
 module "bastion" {
-    source                        = "../../modules/linux-vm"
-    resource_group_name           = "${azurerm_resource_group.public.name}"
-    location                      = "${azurerm_resource_group.public.location}"
+    source                        = "../linux-vm"
+    location                      = "${var.location}"
+    resource_group_name           = "${module.vnet.vnet_resource_group}"
     subnet_id                     = "${module.subnet.subnet_id}"
     vm_hostname                   = "${var.env}-bastion"
     vm_os_simple                  = "${var.bastion_os_simple}"
