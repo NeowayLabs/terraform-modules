@@ -3,14 +3,19 @@ output "vnet_id" {
   value       = "${azurerm_virtual_network.vnet.id}"
 }
 
-output "vnet_name" {
-  description = "The Name of the newly created vNet"
-  value       = "${azurerm_virtual_network.vnet.name}"
-}
-
 output "vnet_location" {
   description = "The location of the newly created vNet"
   value       = "${azurerm_virtual_network.vnet.location}"
+}
+
+output "vnet_resource_group" {
+  description = "The resource group of the newly created vNet"
+  value       = "${azurerm_resource_group.vnet.name}"
+}
+
+output "vnet_name" {
+  description = "The Name of the newly created vNet"
+  value       = "${azurerm_virtual_network.vnet.name}"
 }
 
 output "vnet_address_space" {
