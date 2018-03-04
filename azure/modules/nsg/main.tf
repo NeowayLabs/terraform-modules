@@ -2,15 +2,10 @@ provider "azurerm" {
   version = "~> 1.1"
 }
 
-resource "azurerm_resource_group" "nsg" {
-  name     = "${var.resource_group_name}"
-  location = "${var.location}"
-}
-
 resource "azurerm_network_security_group" "nsg" {
   name                = "${var.security_group_name}"
   location            = "${var.location}"
-  resource_group_name = "${azurerm_resource_group.nsg.name}"
+  resource_group_name = "${var.vnet_resource_group}"
   tags                = "${var.tags}"
 }
 
@@ -30,6 +25,6 @@ resource "azurerm_network_security_rule" "rules" {
   source_address_prefix       = "${lookup(var.rules[count.index], "source_address_prefix")}"
   destination_address_prefix  = "${lookup(var.rules[count.index], "destination_address_prefix")}"
   description                 = "${lookup(var.rules[count.index], "description")}"
-  resource_group_name         = "${azurerm_resource_group.nsg.name}"
+  resource_group_name         = "${var.vnet_resource_group}"
   network_security_group_name = "${azurerm_network_security_group.nsg.name}"
 }

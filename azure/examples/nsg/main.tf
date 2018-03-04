@@ -15,7 +15,7 @@ module "vnet" {
 
 module "nsg1" {
     source                     = "../../modules/nsg"
-    resource_group_name        = "test-rg"
+    vnet_resource_group        = "${module.vnet.vnet_resource_group}"
     location                   = "eastus"
     security_group_name        = "test-nsg-1"
     rules                      = [
@@ -36,7 +36,7 @@ module "nsg1" {
 
 module "nsg2" {
     source                     = "../../modules/nsg"
-    resource_group_name        = "test-rg"
+    vnet_resource_group        = "${module.vnet.vnet_resource_group}"
     location                   = "eastus"
     security_group_name        = "test-nsg-2"
     rules                      = [

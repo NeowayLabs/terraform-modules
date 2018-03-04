@@ -15,7 +15,7 @@ The following example demonstrate how to use the network-security-group module w
 ```hcl
 module "network-security-group" {
     source                     = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/nsg"
-    resource_group_name        = "nsg-resource-group"
+    vnet_resource_group_name   = "nsg-resource-group"
     location                   = "eastus"
     security_group_name        = "nsg"
     rules                      = [
