@@ -15,7 +15,7 @@ The following example demonstrate how to use the route-table module with a route
 ```hcl
 module "route-table" {
     source                     = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/route-table"
-    resource_group_name        = "test-resource-group"
+    vnet_resource_group_name   = "test-resource-group"
     location                   = "eastus"
     route_table_name           = "rt1"
     routes                     = [

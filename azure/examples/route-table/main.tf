@@ -15,7 +15,7 @@ module "vnet" {
 
 module "rt1" {
     source                     = "../../modules/route-table"
-    resource_group_name        = "test-rg"
+    vnet_resource_group        = "${module.vnet.vnet_resource_group}"
     location                   = "eastus"
     route_table_name           = "test-rt-1"
     routes                     = [
@@ -30,7 +30,7 @@ module "rt1" {
 
 module "rt2" {
     source                     = "../../modules/route-table"
-    resource_group_name        = "test-rg"
+    vnet_resource_group        = "${module.vnet.vnet_resource_group}"
     location                   = "eastus"
     route_table_name           = "test-rt-2"
     routes                     = [

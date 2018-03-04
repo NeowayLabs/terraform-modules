@@ -1,12 +1,12 @@
 # Route Table definition
 
-variable "resource_group_name" {
-  description = "Name of the resource group"
-}
-
 variable "location" {
   description = "The location/region where the core network will be created. The full list of Azure regions can be found at https://azure.microsoft.com/regions"
   default     = "eastus2"
+}
+
+variable "vnet_resource_group" {
+  description = "Resource group name that the virtual network was provisioned in."
 }
 
 variable "route_table_name" {
