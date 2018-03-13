@@ -5,6 +5,8 @@ Create a Elastic Search cluster in Azure
 
 This Terraform module create a elastic search cluster in Azure following Neoway rules.
 
+![elastic infra](elastic.png)
+
 The resources below will be created:
 
  * elastic subnet
