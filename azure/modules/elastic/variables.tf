@@ -89,7 +89,7 @@ variable "rack_1_data_nb_instances" {
 
 variable "rack_1_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 1."
-  default = "10"
+  default = "20"
 }
 
 variable "rack_1_data_avset_fault_domain_count" {
@@ -104,7 +104,7 @@ variable "rack_2_data_nb_instances" {
 
 variable "rack_2_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 2."
-  default = "10"
+  default = "20"
 }
 
 variable "rack_2_data_avset_fault_domain_count" {
@@ -119,7 +119,7 @@ variable "rack_3_data_nb_instances" {
 
 variable "rack_3_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 3."
-  default = "10"
+  default = "20"
 }
 
 variable "rack_3_data_avset_fault_domain_count" {
@@ -134,7 +134,7 @@ variable "rack_4_data_nb_instances" {
 
 variable "rack_4_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 4."
-  default = "10"
+  default = "20"
 }
 
 variable "rack_4_data_avset_fault_domain_count" {
