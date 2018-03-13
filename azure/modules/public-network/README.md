@@ -5,6 +5,8 @@ Create a public network in Azure
 
 This Terraform module create a public network in Azure following Neoway rules.
 
+![public-network infra](public-network.png)
+
 The resources below will be created:
 
  * vnet
