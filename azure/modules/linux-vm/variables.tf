@@ -88,14 +88,14 @@ variable "enable_accelerated_networking" {
   default = "false"
 }
 
-variable "public_ip_address_allocation" {
-  description = "Defines how an IP address is assigned. Options are static or dynamic."
-  default     = "dynamic"
-}
-
 variable "nb_public_ip" {
   description = "Number of public IPs to assign corresponding to one IP per vm. Set to 0 to not assign any public IP addresses."
   default     = "0"
+}
+
+variable "public_ip_address_allocation" {
+  description = "Defines how an IP address is assigned. Options are static or dynamic."
+  default     = "dynamic"
 }
 
 variable "public_ip_dns" {
