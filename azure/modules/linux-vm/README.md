@@ -219,7 +219,7 @@ Description: id of the public ip address provisoned.
 
 Authors
 =======
-Originally created by [David Tesar](http://github.com/dtzar)
+Originally created by [David Tesar](https://github.com/Azure/terraform-azurerm-compute)
 
 Changed by [Luciano Faustino](https:github.com/lborguetti) and [Paulo Pizarro](https://github.com/ppizarro).
 
