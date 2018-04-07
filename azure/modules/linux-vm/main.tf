@@ -150,6 +150,15 @@ resource "azurerm_availability_set" "vm" {
   managed                      = true
 }
 
+resource "azurerm_public_ip" "vm" {
+  count                        = "${var.nb_public_ip}"
+  name                         = "${var.vm_hostname}-publicIP-${count.index}"
+  location                     = "${azurerm_resource_group.vm.location}"
+  resource_group_name          = "${azurerm_resource_group.vm.name}"
+  public_ip_address_allocation = "${var.public_ip_address_allocation}"
+  domain_name_label            = "${element(var.public_ip_dns, count.index)}"
+}
+
 resource "azurerm_network_interface" "vm" {
   count                     = "${var.nb_instances}"
   name                      = "${var.vm_hostname}-nic${var.nb_instances == 1 ? "" : "-${count.index}"}"
@@ -162,5 +171,6 @@ resource "azurerm_network_interface" "vm" {
     subnet_id                     = "${var.subnet_id}"
     private_ip_address_allocation = "${var.private_ip_address_allocation}"
     private_ip_address            = "${var.private_ip_address_allocation == "static" ? element(var.private_ip_address_list,count.index) : "" }"
+    public_ip_address_id          = "${length(azurerm_public_ip.vm.*.id) > 0 ? element(concat(azurerm_public_ip.vm.*.id, list("")), count.index) : ""}"
   }
 }
