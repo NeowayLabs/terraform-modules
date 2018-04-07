@@ -8,7 +8,7 @@ This Terraform module deploys Linux Virtual Machines in Azure and associate it f
 - Ability to specify a simple string to get the [latest marketplace image](https://docs.microsoft.com/cli/azure/vm/image?view=azure-cli-latest) using `var.vm_os_simple`
 - All VMs use [managed disks](https://azure.microsoft.com/services/managed-disks/)
 - VM nics attached to a single virtual network subnet of your choice via `var.vnet_subnet_id`.
-- Control the number of Public IP addresses assigned to VMs via `var.nb_public_ip`. Create and attach one Public IP per VM up to the number of VMs or create NO public IPs via setting `var.nb_public_ip` to `0`.
+- Control the number of Public IP addresses assigned to VMs via `var.nb_public_ip`. Create and attach one Public IP per VM up to the number of VMs via setting `var.nb_public_ip` to `1`. Default is `0`.
 
 Simple Usage
 -----
@@ -145,7 +145,7 @@ Description: Enables Azure Accelerated Networking using SR-IOV. Only certain VM 
 
 #### nb_public_ip
 Description: Number of public IPs to assign corresponding to one IP per vm. Set to 0 to not assign any public IP addresses.
- - default: "1"
+ - default: "0"
 
 #### public_ip_address_allocation
 Description: Defines how an IP address is assigned. Options are static or dynamic.
@@ -213,12 +213,6 @@ Description: private ip addresses of the vm nics
 
 #### availability_set_id
 Description: id of the availability set where the vms are provisioned.
-
-#### public_ip_address
-Description: The actual ip address allocated for the resource.
-
-#### public_ip_dns_name
-Description: fqdn to connect to the first vm provisioned.
 
 #### public_ip_id
 Description: id of the public ip address provisoned.
