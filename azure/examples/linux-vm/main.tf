@@ -35,7 +35,7 @@ module "vm-public" {
     location             = "eastus"
     subnet_id            = "${module.subnet.subnet_id}"
     vm_hostname          = "test-public"
-    nb_public_ip         = 2
+    enable_public_ip     = "true"
     public_ip_dns        = ["test0-public", "test1-public"]
 }
 

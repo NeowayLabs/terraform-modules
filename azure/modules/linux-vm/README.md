@@ -8,7 +8,7 @@ This Terraform module deploys Linux Virtual Machines in Azure and associate it f
 - Ability to specify a simple string to get the [latest marketplace image](https://docs.microsoft.com/cli/azure/vm/image?view=azure-cli-latest) using `var.vm_os_simple`
 - All VMs use [managed disks](https://azure.microsoft.com/services/managed-disks/)
 - VM nics attached to a single virtual network subnet of your choice via `var.vnet_subnet_id`.
-- Control the number of Public IP addresses assigned to VMs via `var.nb_public_ip`. Create and attach one Public IP per VM up to the number of VMs via setting `var.nb_public_ip` to `1`. Default is `0`.
+- Enables to create and associate an IP public for each instance created via `var.enable_public_ip`. Default is `false`.
 
 Simple Usage
 -----
@@ -143,16 +143,16 @@ Description: Enables IP Forwarding on the NIC. Defaults to false.
 Description: Enables Azure Accelerated Networking using SR-IOV. Only certain VM instance sizes are supported. Defaults to false.
  - default: "false"
 
-#### nb_public_ip
-Description: Number of public IPs to assign corresponding to one IP per vm. Set to 0 to not assign any public IP addresses.
- - default: "0"
+#### enable_public_ip
+Description: Enables to create and associate an IP public for each instance created.
+ - default: "false"
 
 #### public_ip_address_allocation
 Description: Defines how an IP address is assigned. Options are static or dynamic.
  - default: "dynamic"
 
 #### public_ip_dns
-Description: Optional globally unique per datacenter region domain name label to apply to each public ip address. e.g. thisvar.varlocation.cloudapp.azure.com where you specify only thisvar here. This is an array of names which will pair up sequentially to the number of public ips defined in var.nb_public_ip. One name or empty string is required for every public ip. If no public ip is desired, then set this to an array with a single empty string.
+Description: Optional globally unique per datacenter region domain name label to apply to each public ip address. e.g. thisvar.varlocation.cloudapp.azure.com where you specify only thisvar here. This is an array of names which will pair up sequentially to the number of public ips defined in var.nb_instances. One name or empty string is required for every public ip. If no public ip is desired, then set this to an array with a single empty string.
  - default: [ "" ]
 
 #### private_ip_address_allocation

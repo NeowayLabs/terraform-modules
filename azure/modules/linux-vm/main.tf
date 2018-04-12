@@ -151,7 +151,7 @@ resource "azurerm_availability_set" "vm" {
 }
 
 resource "azurerm_public_ip" "vm" {
-  count                        = "${var.nb_public_ip}"
+  count                        = "${var.enable_public_ip == "true" ? var.nb_instances : 0}"
   name                         = "${var.vm_hostname}-public-ip-${count.index}"
   location                     = "${azurerm_resource_group.vm.location}"
   resource_group_name          = "${azurerm_resource_group.vm.name}"
