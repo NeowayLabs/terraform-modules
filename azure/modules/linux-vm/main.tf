@@ -11,12 +11,6 @@ module "os" {
   vm_os_simple = "${var.vm_os_simple}"
 }
 
-resource "azurerm_resource_group" "vm" {
-  count    = "${var.nb_instances > 0 ? "1" : "0"}"
-  name     = "${var.resource_group_name}"
-  location = "${var.location}"
-}
-
 resource "random_id" "vm-sa" {
   count   = "${var.nb_instances > 0 ? "1" : "0"}"
   keepers = {
@@ -29,7 +23,7 @@ resource "random_id" "vm-sa" {
 resource "azurerm_storage_account" "vm-sa" {
   count                    = "${var.boot_diagnostics == "true" ? 1 : 0}"
   name                     = "bootdiag${lower(random_id.vm-sa.hex)}"
-  resource_group_name      = "${azurerm_resource_group.vm.name}"
+  resource_group_name      = "${var.resource_group_name}"
   location                 = "${var.location}"
   account_tier             = "${element(split("_", var.boot_diagnostics_sa_type),0)}"
   account_replication_type = "${element(split("_", var.boot_diagnostics_sa_type),1)}"
@@ -40,7 +34,7 @@ resource "azurerm_virtual_machine" "vm-linux" {
   count                         = "${var.data_disk == "false" ? var.nb_instances : 0}"
   name                          = "${var.vm_hostname}-vm-${count.index}"
   location                      = "${var.location}"
-  resource_group_name           = "${azurerm_resource_group.vm.name}"
+  resource_group_name           = "${var.resource_group_name}"
   availability_set_id           = "${azurerm_availability_set.vm.id}"
   vm_size                       = "${var.vm_size}"
   network_interface_ids         = ["${element(azurerm_network_interface.vm.*.id, count.index)}"]
@@ -87,7 +81,7 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
   count                         = "${var.data_disk == "true" ? var.nb_instances : 0}"
   name                          = "${var.vm_hostname}-vm-${count.index}"
   location                      = "${var.location}"
-  resource_group_name           = "${azurerm_resource_group.vm.name}"
+  resource_group_name           = "${var.resource_group_name}"
   availability_set_id           = "${azurerm_availability_set.vm.id}"
   vm_size                       = "${var.vm_size}"
   network_interface_ids         = ["${element(azurerm_network_interface.vm.*.id, count.index)}"]
@@ -143,8 +137,8 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
 resource "azurerm_availability_set" "vm" {
   count                        = "${var.nb_instances > 0 ? "1" : "0"}"
   name                         = "${var.vm_hostname}-availset"
-  location                     = "${azurerm_resource_group.vm.location}"
-  resource_group_name          = "${azurerm_resource_group.vm.name}"
+  location                     = "${var.location}"
+  resource_group_name          = "${var.resource_group_name}"
   platform_update_domain_count = "${var.avset_update_domain_count}"
   platform_fault_domain_count  = "${var.avset_fault_domain_count}"
   managed                      = true
@@ -162,8 +156,8 @@ resource "azurerm_public_ip" "vm" {
 resource "azurerm_network_interface" "vm" {
   count                     = "${var.nb_instances}"
   name                      = "${var.vm_hostname}-nic-${count.index}"
-  location                  = "${azurerm_resource_group.vm.location}"
-  resource_group_name       = "${azurerm_resource_group.vm.name}"
+  location                  = "${var.location}"
+  resource_group_name       = "${var.resource_group_name}"
   enable_ip_forwarding      = "${var.enable_ip_forwarding}"
 
   ip_configuration {
