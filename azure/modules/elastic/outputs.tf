@@ -84,34 +84,34 @@ output "rack_4_data_network_interface_ids" {
   value       = "${module.rack_4_data.network_interface_ids}"
 }
 
-output "master_network_interface_private_ip" {
+output "master_network_interface_private_ips" {
   description = "private ip addresses of the master vm nics"
-  value       = "${module.master.network_interface_private_ip}"
+  value       = "${module.master.network_interface_private_ips}"
 }
 
-output "client_network_interface_private_ip" {
+output "client_network_interface_private_ips" {
   description = "private ip addresses of the client vm nics"
-  value       = "${module.client.network_interface_private_ip}"
+  value       = "${module.client.network_interface_private_ips}"
 }
 
-output "rack_1_data_network_interface_private_ip" {
+output "rack_1_data_network_interface_private_ips" {
   description = "private ip addresses of the data vm nics in rack 1"
-  value       = "${module.rack_1_data.network_interface_private_ip}"
+  value       = "${module.rack_1_data.network_interface_private_ips}"
 }
 
-output "rack_2_data_network_interface_private_ip" {
+output "rack_2_data_network_interface_private_ips" {
   description = "private ip addresses of the data vm nics in rack 2"
-  value       = "${module.rack_2_data.network_interface_private_ip}"
+  value       = "${module.rack_2_data.network_interface_private_ips}"
 }
 
-output "rack_3_data_network_interface_private_ip" {
+output "rack_3_data_network_interface_private_ips" {
   description = "private ip addresses of the data vm nics in rack 3"
-  value       = "${module.rack_3_data.network_interface_private_ip}"
+  value       = "${module.rack_3_data.network_interface_private_ips}"
 }
 
-output "rack_4_data_network_interface_private_ip" {
+output "rack_4_data_network_interface_private_ips" {
   description = "private ip addresses of the data vm nics in rack 4"
-  value       = "${module.rack_4_data.network_interface_private_ip}"
+  value       = "${module.rack_4_data.network_interface_private_ips}"
 }
 
 output "master_availability_set_id" {
