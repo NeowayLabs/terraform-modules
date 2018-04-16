@@ -13,7 +13,7 @@ output "network_interface_private_ips" {
   value       = "${azurerm_network_interface.vm.*.private_ip_address}"
 }
 
-output "public_ip_id" {
+output "public_ip_ids" {
   description = "id of the public ip address provisoned."
   value       = "${azurerm_public_ip.vm.*.id}"
 }
