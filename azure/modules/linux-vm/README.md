@@ -41,22 +41,22 @@ More specifically this provisions:
 
 ```hcl 
   module "linuxservers" {
-    source              = "Azure/compute/azurerm"
-    resource_group_name = "test-linux-vms"
-    location            = "eastus"
-    vm_hostname         = "mylinuxvm"
-    nb_instances        = "2"
-    vm_os_publisher     = "Canonical"
-    vm_os_offer         = "UbuntuServer"
-    vm_os_sku           = "14.04.2-LTS"
-    subnet_id           = "${module.subnet.subnet_id}"
-    data_disk           = "true"
-    data_disk_size_gb   = "64"
-    data_sa_type        = "Premium_LRS"
-    tags                = {
-                            environment = "dev"
-                            costcenter  = "it"
-                          }
+    source                 = "Azure/compute/azurerm"
+    resource_group_name    = "test-linux-vms"
+    location               = "eastus"
+    vm_hostname            = "mylinuxvm"
+    nb_instances           = "2"
+    vm_os_publisher        = "Canonical"
+    vm_os_offer            = "UbuntuServer"
+    vm_os_sku              = "14.04.2-LTS"
+    subnet_id              = "${module.subnet.subnet_id}"
+    data_disk              = "true"
+    data_disk_size_gb      = "64"
+    data_managed_disk_type = "Premium_LRS"
+    tags                   = {
+                               environment = "dev"
+                               costcenter  = "it"
+                             }
   }
 
   output "linux_vm_private_ips" {
@@ -102,7 +102,7 @@ Description: Specify the number of vm instances
 Description: local name of the VM
  - default: "myvm"
 
-#### os_sa_type
+#### os_managed_disk_type
 Description: Defines the type of storage account to be created. Value you must be either Standard_LRS or Premium_LRS.
  - default: "Premium_LRS"
 
@@ -175,7 +175,7 @@ Description: Specifies the number of update domains that are used. Defaults to 5
 Description: Specifies the number of fault domains that are used. Defaults to 3.
  - default: "3"
 
-#### data_sa_type
+#### data_managed_disk_type
 Description: Defines the type of storage account to be created for data disk. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS.
  - default: "Premium_LRS"
 

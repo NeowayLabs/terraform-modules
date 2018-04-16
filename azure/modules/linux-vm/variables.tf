@@ -35,7 +35,7 @@ variable "vm_hostname" {
   default     = "myvm"
 }
 
-variable "os_sa_type" {
+variable "os_managed_disk_type" {
   description = "Defines the type of storage account to be created. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS."
   default     = "Premium_LRS"
 }
@@ -128,7 +128,7 @@ variable "avset_fault_domain_count" {
   default = "3"
 }
 
-variable "data_sa_type" {
+variable "data_managed_disk_type" {
   description = "Defines the type of storage account to be created for data disk. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS."
   default     = "Premium_LRS"
 }
