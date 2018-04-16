@@ -60,7 +60,7 @@ More specifically this provisions:
   }
 
   output "linux_vm_private_ips" {
-    value = "${module.linuxservers.network_interface_private_ip}"
+    value = "${module.linuxservers.network_interface_private_ips}"
   }
 ```
 
@@ -87,7 +87,7 @@ Description: The admin username of the VM that will be deployed
  - default: "bootstrap"
 
 #### ssh_key
-Description: Path to the public key to be used for ssh access to the VM.  Only used with non-Windows vms and can be left as-is even if using Windows vms. If specifying a path to a certification on a Windows machine to provision a linux vm use the / in the path versus backslash. e.g. c:/home/id_rsa.pub
+Description: Path to the public key to be used for ssh access to the VM.
  - default: "~/.ssh/id_rsa.pub"
 
 #### vm_size
@@ -103,7 +103,7 @@ Description: local name of the VM
  - default: "myvm"
 
 #### os_sa_type
-Description: Defines the type of storage account to be created. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS.
+Description: Defines the type of storage account to be created. Value you must be either Standard_LRS or Premium_LRS.
  - default: "Premium_LRS"
 
 #### vm_os_simple
@@ -208,7 +208,7 @@ Description: Virtual machine ids created.
 #### network_interface_ids
 Description: ids of the vm nics provisoned.
 
-#### network_interface_private_ip
+#### network_interface_private_ips
 Description: private ip addresses of the vm nics
 
 #### availability_set_id
