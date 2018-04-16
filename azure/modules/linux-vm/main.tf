@@ -38,7 +38,7 @@ resource "azurerm_storage_account" "vm-sa" {
 
 resource "azurerm_virtual_machine" "vm-linux" {
   count                         = "${var.data_disk == "false" ? var.nb_instances : 0}"
-  name                          = "${var.vm_hostname}-vm${var.nb_instances == 1 ? "" : "-${count.index}"}"
+  name                          = "${var.vm_hostname}-vm-${count.index}"
   location                      = "${var.location}"
   resource_group_name           = "${azurerm_resource_group.vm.name}"
   availability_set_id           = "${azurerm_availability_set.vm.id}"
@@ -55,14 +55,14 @@ resource "azurerm_virtual_machine" "vm-linux" {
   }
 
   storage_os_disk {
-    name              = "${var.vm_hostname}-vm${var.nb_instances == 1 ? "" : "-${count.index}"}-osdisk"
+    name              = "${var.vm_hostname}-vm-${count.index}-osdisk"
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = "${var.os_sa_type}"
   }
 
   os_profile {
-    computer_name  = "${var.vm_hostname}${var.nb_instances == 1 ? "" : "-${count.index}"}"
+    computer_name  = "${var.vm_hostname}-${count.index}"
     admin_username = "${var.admin_username}"
   }
 
@@ -85,7 +85,7 @@ resource "azurerm_virtual_machine" "vm-linux" {
 
 resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
   count                         = "${var.data_disk == "true" ? var.nb_instances : 0}"
-  name                          = "${var.vm_hostname}-vm${var.nb_instances == 1 ? "" : "-${count.index}"}"
+  name                          = "${var.vm_hostname}-vm-${count.index}"
   location                      = "${var.location}"
   resource_group_name           = "${azurerm_resource_group.vm.name}"
   availability_set_id           = "${azurerm_availability_set.vm.id}"
@@ -102,14 +102,14 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
   }
 
   storage_os_disk {
-    name              = "${var.vm_hostname}-vm${var.nb_instances == 1 ? "" : "-${count.index}"}-osdisk"
+    name              = "${var.vm_hostname}-vm-${count.index}-osdisk"
     managed_disk_type = "${var.os_sa_type}"
     create_option     = "FromImage"
     caching           = "ReadWrite"
   }
 
   storage_data_disk {
-    name                             = "${var.vm_hostname}-vm${var.nb_instances == 1 ? "" : "-${count.index}"}-datadisk"
+    name                             = "${var.vm_hostname}-vm-${count.index}-datadisk"
     managed_disk_type                = "${var.data_sa_type}"
     create_option                    = "Empty"
     disk_size_gb                     = "${var.data_disk_size_gb}"
@@ -119,7 +119,7 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
   }
 
   os_profile {
-    computer_name  = "${var.vm_hostname}${var.nb_instances == 1 ? "" : "-${count.index}"}"
+    computer_name  = "${var.vm_hostname}-${count.index}"
     admin_username = "${var.admin_username}"
   }
 
@@ -152,7 +152,7 @@ resource "azurerm_availability_set" "vm" {
 
 resource "azurerm_network_interface" "vm" {
   count                     = "${var.nb_instances}"
-  name                      = "${var.vm_hostname}-nic${var.nb_instances == 1 ? "" : "-${count.index}"}"
+  name                      = "${var.vm_hostname}-nic-${count.index}"
   location                  = "${azurerm_resource_group.vm.location}"
   resource_group_name       = "${azurerm_resource_group.vm.name}"
   enable_ip_forwarding      = "${var.enable_ip_forwarding}"
