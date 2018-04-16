@@ -151,7 +151,7 @@ Description: Enables to create and associate an IP public for each instance crea
 Description: Defines how an IP address is assigned. Options are static or dynamic.
  - default: "dynamic"
 
-#### public_ip_dns
+#### public_ip_dns_list
 Description: Optional globally unique per datacenter region domain name label to apply to each public ip address. e.g. thisvar.varlocation.cloudapp.azure.com where you specify only thisvar here. This is an array of names which will pair up sequentially to the number of public ips defined in var.nb_instances. One name or empty string is required for every public ip. If no public ip is desired, then set this to an array with a single empty string.
  - default: [ "" ]
 

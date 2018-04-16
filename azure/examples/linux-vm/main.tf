@@ -36,7 +36,7 @@ module "vm-public" {
     subnet_id            = "${module.subnet.subnet_id}"
     vm_hostname          = "test-public"
     enable_public_ip     = "true"
-    public_ip_dns        = ["test0-public", "test1-public"]
+    public_ip_dns_list   = ["test0-public", "test1-public"]
 }
 
 locals {
