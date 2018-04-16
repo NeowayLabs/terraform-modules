@@ -17,17 +17,7 @@ output "public_ip_id" {
   description = "id of the public ip address provisoned."
   value       = "${azurerm_public_ip.vm.*.id}"
 }
-/*
-output "public_ip_address" {
-  description = "The actual ip address allocated for the resource."
-  value       = "${azurerm_public_ip.vm.*.ip_address}"
-}
 
-output "public_ip_dns_name" {
-  description = "fqdn to connect to the first vm provisioned."
-  value       = "${azurerm_public_ip.vm.*.fqdn}"
-}
-*/
 output "availability_set_id" {
   description = "id of the availability set where the vms are provisioned."
   value       = "${azurerm_availability_set.vm.*.id}"
