@@ -214,8 +214,8 @@ Description: private ip addresses of the vm nics
 #### availability_set_id
 Description: id of the availability set where the vms are provisioned.
 
-#### public_ip_id
-Description: id of the public ip address provisoned.
+#### public_ip_ids
+Description: id of the public ip addresses provisoned.
 
 Authors
 =======
