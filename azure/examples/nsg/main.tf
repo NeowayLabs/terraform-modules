@@ -1,7 +1,12 @@
 
+resource "azurerm_resource_group" "vm" {
+  name     = "test-nsg-rg"
+  location = "eastus"
+}
+
 module "vnet" {
     source                  = "../../modules/vnet"
-    resource_group_name     = "test-rg"
+    resource_group_name     = "test-nsg-rg"
     location                = "eastus"
     vnet_name               = "test-vnet"
     address_space           = ["10.31.0.0/16"]
@@ -15,7 +20,7 @@ module "vnet" {
 
 module "nsg1" {
     source                     = "../../modules/nsg"
-    vnet_resource_group        = "${module.vnet.vnet_resource_group}"
+    vnet_resource_group        = "test-nsg-rg"
     location                   = "eastus"
     security_group_name        = "test-nsg-1"
     rules                      = [
@@ -36,7 +41,7 @@ module "nsg1" {
 
 module "nsg2" {
     source                     = "../../modules/nsg"
-    vnet_resource_group        = "${module.vnet.vnet_resource_group}"
+    vnet_resource_group        = "test-nsg-rg"
     location                   = "eastus"
     security_group_name        = "test-nsg-2"
     rules                      = [

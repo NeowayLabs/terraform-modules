@@ -3,10 +3,15 @@ provider "azurerm" {
   version = "~> 1.1"
 }
 
+resource "azurerm_resource_group" "public" {
+  name     = "${var.env}-network"
+  location = "${var.location}"
+}
+
 module "vnet" {
     source              = "../vnet"
     location            = "${var.location}"
-    resource_group_name = "${var.env}-network"
+    resource_group_name = "${azurerm_resource_group.public.name}"
     vnet_name           = "${var.env}-vnet"
     address_space       = "${var.vnet_address_space}"
 }
@@ -15,7 +20,7 @@ module "subnet" {
     source                = "../subnet"
     location              = "${var.location}"
     vnet_name             = "${module.vnet.vnet_name}"
-    vnet_resource_group   = "${module.vnet.vnet_resource_group}"
+    vnet_resource_group   = "${azurerm_resource_group.public.name}"
     subnet_name           = "${var.env}-public-subnet"
     subnet_address_prefix = "${var.subnet_address_prefix}"
     security_group_name   = "${var.env}-public-security-group"
@@ -27,7 +32,7 @@ module "subnet" {
 module "bastion" {
     source                        = "../linux-vm"
     location                      = "${var.location}"
-    resource_group_name           = "${module.vnet.vnet_resource_group}"
+    resource_group_name           = "${azurerm_resource_group.public.name}"
     subnet_id                     = "${module.subnet.subnet_id}"
     vm_hostname                   = "${var.env}-bastion"
     vm_os_simple                  = "${var.bastion_os_simple}"

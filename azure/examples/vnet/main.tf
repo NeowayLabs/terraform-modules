@@ -1,7 +1,12 @@
 
+resource "azurerm_resource_group" "vm" {
+  name     = "test-vnet-rg"
+  location = "eastus"
+}
+
 module "vnet" {
     source                  = "../../modules/vnet"
-    resource_group_name     = "test-rg"
+    resource_group_name     = "test-vnet-rg"
     location                = "eastus"
     vnet_name               = "test-vnet"
     address_space           = ["10.31.0.0/16"]

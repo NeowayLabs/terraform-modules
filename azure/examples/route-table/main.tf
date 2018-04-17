@@ -1,7 +1,12 @@
 
+resource "azurerm_resource_group" "vm" {
+  name     = "test-route-rg"
+  location = "eastus"
+}
+
 module "vnet" {
     source                  = "../../modules/vnet"
-    resource_group_name     = "test-rg"
+    resource_group_name     = "test-route-rg"
     location                = "eastus"
     vnet_name               = "test-vnet"
     address_space           = ["10.31.0.0/16"]
@@ -15,7 +20,7 @@ module "vnet" {
 
 module "rt1" {
     source                     = "../../modules/route-table"
-    vnet_resource_group        = "${module.vnet.vnet_resource_group}"
+    vnet_resource_group        = "test-route-rg"
     location                   = "eastus"
     route_table_name           = "test-rt-1"
     routes                     = [
@@ -30,7 +35,7 @@ module "rt1" {
 
 module "rt2" {
     source                     = "../../modules/route-table"
-    vnet_resource_group        = "${module.vnet.vnet_resource_group}"
+    vnet_resource_group        = "test-route-rg"
     location                   = "eastus"
     route_table_name           = "test-rt-2"
     routes                     = [

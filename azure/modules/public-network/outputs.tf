@@ -8,9 +8,9 @@ output "vnet_name" {
   value       = "${module.vnet.vnet_name}"
 }
 
-output "vnet_resource_group" {
-  description = "The resource group of the newly created vNet"
-  value       = "${module.vnet.vnet_resource_group}"
+output "resource_group_name" {
+  description = "The resource group of public network created"
+  value       = "${azurerm_resource_group.public.name}"
 }
 
 output "vnet_address_space" {

@@ -10,7 +10,7 @@ output "vnet_location" {
 
 output "vnet_resource_group" {
   description = "The resource group of the newly created vNet"
-  value       = "${azurerm_resource_group.vnet.name}"
+  value       = "${azurerm_virtual_network.vnet.name}"
 }
 
 output "vnet_name" {
