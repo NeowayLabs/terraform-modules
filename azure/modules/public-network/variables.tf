@@ -16,6 +16,11 @@ variable "vnet_address_space" {
   default = ["10.0.0.0/16"]
 }
 
+variable "dns_servers" {
+  description = "The DNS servers to be used with vnet. If no values specified, this defaults to Azure DNS"
+  default = []
+}
+
 variable "subnet_address_prefix" {
   description = "The address prefix to use for the public subnet."
   default = "10.0.1.0/24"

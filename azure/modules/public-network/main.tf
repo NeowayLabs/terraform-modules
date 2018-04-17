@@ -14,6 +14,7 @@ module "vnet" {
     resource_group_name = "${azurerm_resource_group.public.name}"
     vnet_name           = "${var.env}-vnet"
     address_space       = "${var.vnet_address_space}"
+    dns_servers         = "${var.dns_servers}"
 }
 
 module "subnet" {
