@@ -55,7 +55,7 @@ output "public_network_bastion_vm_id" {
 
 output "public_network_bastion_private_ip" {
   description = "The bastion private ip address"
-  value       = "${module.bastion.network_interface_private_ip}"
+  value       = "${module.bastion.network_interface_private_ips[0]}"
 }
 
 output "public_network_bastion_avset_id" {

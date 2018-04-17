@@ -35,7 +35,7 @@ variable "vm_hostname" {
   default     = "myvm"
 }
 
-variable "os_sa_type" {
+variable "os_managed_disk_type" {
   description = "Defines the type of storage account to be created. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS."
   default     = "Premium_LRS"
 }
@@ -88,6 +88,21 @@ variable "enable_accelerated_networking" {
   default = "false"
 }
 
+variable "enable_public_ip" {
+  description = "Enables to create and associate an IP public for each instance created."
+  default     = "false"
+}
+
+variable "public_ip_address_allocation" {
+  description = "Defines how an IP address is assigned. Options are static or dynamic."
+  default     = "dynamic"
+}
+
+variable "public_ip_dns_list" {
+  description = "Optional globally unique per datacenter region domain name label to apply to each public ip address. e.g. thisvar.varlocation.cloudapp.azure.com where you specify only thisvar here. This is an array of names which will pair up sequentially to the number of public ips defined in var.nb_instances. One name or empty string is required for every public ip. If no public ip is desired, then set this to an array with a single empty string."
+  default     = [""]
+}
+
 variable "private_ip_address_allocation" {
   description = "Defines how an IP address is assigned. Options are static or dynamic."
   default     = "dynamic"
@@ -113,7 +128,7 @@ variable "avset_fault_domain_count" {
   default = "3"
 }
 
-variable "data_sa_type" {
+variable "data_managed_disk_type" {
   description = "Defines the type of storage account to be created for data disk. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS."
   default     = "Premium_LRS"
 }

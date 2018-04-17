@@ -19,13 +19,24 @@ module "subnet" {
     security_group_rules  = "${local.nsg1_rules}"
 }
 
-module "vm" {
+module "vm-private" {
+    nb_instances         = 2
     source               = "../../modules/linux-vm"
     resource_group_name  = "${module.vnet.vnet_resource_group}"
     location             = "eastus"
     subnet_id            = "${module.subnet.subnet_id}"
-    vm_hostname          = "test-service"
+    vm_hostname          = "test-private"
+}
+
+module "vm-public" {
     nb_instances         = 2
+    source               = "../../modules/linux-vm"
+    resource_group_name  = "${module.vnet.vnet_resource_group}"
+    location             = "eastus"
+    subnet_id            = "${module.subnet.subnet_id}"
+    vm_hostname          = "test-public"
+    enable_public_ip     = "true"
+    public_ip_dns_list   = ["test0-public", "test1-public"]
 }
 
 locals {

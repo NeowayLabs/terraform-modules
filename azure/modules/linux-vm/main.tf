@@ -58,7 +58,7 @@ resource "azurerm_virtual_machine" "vm-linux" {
     name              = "${var.vm_hostname}-vm${var.nb_instances == 1 ? "" : "-${count.index}"}-osdisk"
     create_option     = "FromImage"
     caching           = "ReadWrite"
-    managed_disk_type = "${var.os_sa_type}"
+    managed_disk_type = "${var.os_managed_disk_type}"
   }
 
   os_profile {
@@ -103,14 +103,14 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
 
   storage_os_disk {
     name              = "${var.vm_hostname}-vm${var.nb_instances == 1 ? "" : "-${count.index}"}-osdisk"
-    managed_disk_type = "${var.os_sa_type}"
+    managed_disk_type = "${var.os_managed_disk_type}"
     create_option     = "FromImage"
     caching           = "ReadWrite"
   }
 
   storage_data_disk {
     name                             = "${var.vm_hostname}-vm${var.nb_instances == 1 ? "" : "-${count.index}"}-datadisk"
-    managed_disk_type                = "${var.data_sa_type}"
+    managed_disk_type                = "${var.data_managed_disk_type}"
     create_option                    = "Empty"
     disk_size_gb                     = "${var.data_disk_size_gb}"
     caching                          = "${var.data_disk_caching}"
@@ -150,6 +150,15 @@ resource "azurerm_availability_set" "vm" {
   managed                      = true
 }
 
+resource "azurerm_public_ip" "vm" {
+  count                        = "${var.enable_public_ip == "true" ? var.nb_instances : 0}"
+  name                         = "${var.vm_hostname}-public-ip-${count.index}"
+  location                     = "${azurerm_resource_group.vm.location}"
+  resource_group_name          = "${azurerm_resource_group.vm.name}"
+  public_ip_address_allocation = "${var.public_ip_address_allocation}"
+  domain_name_label            = "${element(var.public_ip_dns_list, count.index)}"
+}
+
 resource "azurerm_network_interface" "vm" {
   count                     = "${var.nb_instances}"
   name                      = "${var.vm_hostname}-nic${var.nb_instances == 1 ? "" : "-${count.index}"}"
@@ -162,5 +171,6 @@ resource "azurerm_network_interface" "vm" {
     subnet_id                     = "${var.subnet_id}"
     private_ip_address_allocation = "${var.private_ip_address_allocation}"
     private_ip_address            = "${var.private_ip_address_allocation == "static" ? element(var.private_ip_address_list,count.index) : "" }"
+    public_ip_address_id          = "${length(azurerm_public_ip.vm.*.id) > 0 ? element(concat(azurerm_public_ip.vm.*.id, list("")), count.index) : ""}"
   }
 }
