@@ -1,7 +1,12 @@
 
+resource "azurerm_resource_group" "vm" {
+  name     = "test-subnet-rg"
+  location = "eastus"
+}
+
 module "vnet" {
     source              = "../../modules/vnet"
-    resource_group_name = "test-rg"
+    resource_group_name = "test-subnet-rg"
     location            = "eastus"
     vnet_name           = "test-vnet"
     address_space       = ["10.31.0.0/16"]
@@ -15,7 +20,7 @@ module "subnet" {
     source                = "../../modules/subnet"
     location              = "eastus"
     vnet_name             = "test-vnet"
-    vnet_resource_group   = "${module.vnet.vnet_resource_group}"
+    vnet_resource_group   = "test-subnet-rg"
     subnet_address_prefix = "10.31.1.0/24"
     subnet_name           = "test-subnet1"
     security_group_name   = "test-nsg1"
