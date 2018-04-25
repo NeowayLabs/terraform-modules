@@ -12,7 +12,8 @@ module "os" {
 }
 
 resource "random_id" "vm-sa" {
-  count   = "${var.nb_instances > 0 ? "1" : "0"}"
+  count = "${var.nb_instances > 0 ? "1" : "0"}"
+
   keepers = {
     vm_hostname = "${var.vm_hostname}"
   }
@@ -154,11 +155,11 @@ resource "azurerm_public_ip" "vm" {
 }
 
 resource "azurerm_network_interface" "vm" {
-  count                     = "${var.nb_instances}"
-  name                      = "${var.vm_hostname}-nic-${count.index}"
-  location                  = "${var.location}"
-  resource_group_name       = "${var.resource_group_name}"
-  enable_ip_forwarding      = "${var.enable_ip_forwarding}"
+  count                = "${var.nb_instances}"
+  name                 = "${var.vm_hostname}-nic-${count.index}"
+  location             = "${var.location}"
+  resource_group_name  = "${var.resource_group_name}"
+  enable_ip_forwarding = "${var.enable_ip_forwarding}"
 
   ip_configuration {
     name                          = "default-ip-config"

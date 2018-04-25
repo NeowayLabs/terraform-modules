@@ -22,4 +22,3 @@ output "subnet_route_table_id" {
   description = "The id of route table created and associated to the newly subnet"
   value       = "${module.route_table.route_table_id}"
 }
-

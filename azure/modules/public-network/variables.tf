@@ -2,28 +2,28 @@
 
 variable "env" {
   description = "Environment to orchestrate. This name will be use with a prefix for resource group, subnet, nsg, route table names"
-  default = "test"
+  default     = "test"
 }
 
 variable "location" {
   description = "The location/region where the subnet will be created. The full list of Azure regions can be found at https://azure.microsoft.com/regions"
-  default = "eastus2"
+  default     = "eastus2"
 }
 
 variable "vnet_address_space" {
   description = "A list of address space that will be used by the virtual network."
-  type = "list"
-  default = ["10.0.0.0/16"]
+  type        = "list"
+  default     = ["10.0.0.0/16"]
 }
 
 variable "dns_servers" {
   description = "The DNS servers to be used with vnet. If no values specified, this defaults to Azure DNS"
-  default = []
+  default     = []
 }
 
 variable "subnet_address_prefix" {
   description = "The address prefix to use for the public subnet."
-  default = "10.0.1.0/24"
+  default     = "10.0.1.0/24"
 }
 
 # Security group rules arguments
@@ -31,8 +31,8 @@ variable "subnet_address_prefix" {
 # All the fields are required.
 variable "security_group_rules" {
   description = "Security rules for the network security group using this format name = [priority, direction, access, protocol, source_port_range, source_address_prefix, destination_port_range, destination_address_prefix, description]"
-  type = "list"
-  default = []
+  type        = "list"
+  default     = []
 }
 
 # Route table routes arguments
@@ -40,18 +40,18 @@ variable "security_group_rules" {
 # All the fields are required excepted next_hop_in_ip_address.
 variable "route_table_routes" {
   description = "Routes for the route table using this format name = [name, address_prefix, next_hop_type, next_hop_in_ip_address]"
-  type = "list"
-  default = []
+  type        = "list"
+  default     = []
 }
 
 variable "bastion_avset_fault_domain_count" {
   description = "number of update domains to bastion virtual machines"
-  default = "2"
+  default     = "2"
 }
 
 variable "bastion_avset_update_domain_count" {
   description = "number of fault domains to bastion virtual machines"
-  default = "2"
+  default     = "2"
 }
 
 variable "bastion_private_ip_address" {
@@ -60,7 +60,7 @@ variable "bastion_private_ip_address" {
 
 variable "bastion_virtual_machine_instance_size" {
   description = "instance size to bastion virtual machine"
-  default = "Standard_DS2_v2"
+  default     = "Standard_DS2_v2"
 }
 
 variable "bastion_os_simple" {
@@ -70,10 +70,9 @@ variable "bastion_os_simple" {
 
 variable "bastion_admin_username" {
   description = "name of the administrator account"
-  default = "bootstrap"
+  default     = "bootstrap"
 }
 
 variable "bastion_public_ssh_key" {
   description = "public ssh key to bastion virtual machine"
 }
-

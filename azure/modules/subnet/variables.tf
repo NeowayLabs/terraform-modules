@@ -47,4 +47,3 @@ variable "route_table_routes" {
   type        = "list"
   default     = []
 }
-

@@ -74,18 +74,17 @@ variable "tags" {
   type        = "map"
   description = "A map of the tags to use on the resources that are deployed with this module."
 
-  default = {
-  }
+  default = {}
 }
 
 variable "enable_ip_forwarding" {
   description = "Enables IP Forwarding on the NIC. Defaults to false."
-  default = "false"
+  default     = "false"
 }
 
 variable "enable_accelerated_networking" {
   description = "Enables Azure Accelerated Networking using SR-IOV. Only certain VM instance sizes are supported. Defaults to false."
-  default = "false"
+  default     = "false"
 }
 
 variable "enable_public_ip" {
@@ -110,7 +109,7 @@ variable "private_ip_address_allocation" {
 
 variable "private_ip_address_list" {
   description = "A list of static IP address."
-  default = [""]
+  default     = [""]
 }
 
 variable "delete_os_disk_on_termination" {
@@ -120,12 +119,12 @@ variable "delete_os_disk_on_termination" {
 
 variable "avset_update_domain_count" {
   description = "Specifies the number of update domains that are used. Defaults to 5."
-  default = "5"
+  default     = "5"
 }
 
 variable "avset_fault_domain_count" {
   description = "Specifies the number of fault domains that are used. Defaults to 3."
-  default = "3"
+  default     = "3"
 }
 
 variable "data_managed_disk_type" {

@@ -2,12 +2,12 @@
 
 variable "env" {
   description = "Environment to orchestrate. This name will be use with a prefix for name of resource group, subnet, nsg, route table, instances"
-  default = "test"
+  default     = "test"
 }
 
 variable "location" {
   description = "The location/region where the virtual network is created. Changing this forces a new resource to be created."
-  default = "eastus2"
+  default     = "eastus2"
 }
 
 variable "name" {
@@ -28,14 +28,14 @@ variable "subnet_address_prefix" {
 
 variable "security_group_rules" {
   description = "Security rules for the network security group using this format name = [priority, direction, access, protocol, source_port_range, source_address_prefix, destination_port_range, destination_address_prefix, description]"
-  type = "list"
-  default = []
+  type        = "list"
+  default     = []
 }
 
 variable "route_table_routes" {
   description = "Routes for the route table using this format name = [name, address_prefix, next_hop_type, next_hop_in_ip_address]"
-  type = "list"
-  default = []
+  type        = "list"
+  default     = []
 }
 
 variable "elastic_username" {
@@ -60,7 +60,7 @@ variable "master_vm_size" {
 
 variable "master_private_ip_address" {
   description = "A list of static IP address for each master node."
-  default = [""]
+  default     = [""]
 }
 
 variable "client_nb_instances" {
@@ -75,7 +75,7 @@ variable "client_vm_size" {
 
 variable "client_private_ip_address" {
   description = "A list of static IP address for each client node."
-  default = [""]
+  default     = [""]
 }
 
 variable "data_vm_size" {
@@ -89,56 +89,55 @@ variable "rack_1_data_nb_instances" {
 
 variable "rack_1_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 1."
-  default = "20"
+  default     = "20"
 }
 
 variable "rack_1_data_avset_fault_domain_count" {
   description = "Specifies the number of fault domains that are used for rack 1."
-  default = "2"
+  default     = "2"
 }
 
 variable "rack_2_data_nb_instances" {
   description = "Specify the number of instances of data node in rack 2."
-  default = "0"
+  default     = "0"
 }
 
 variable "rack_2_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 2."
-  default = "20"
+  default     = "20"
 }
 
 variable "rack_2_data_avset_fault_domain_count" {
   description = "Specifies the number of fault domains that are used for rack 2."
-  default = "2"
+  default     = "2"
 }
 
 variable "rack_3_data_nb_instances" {
   description = "Specify the number of instances of data node in rack 3."
-  default = "0"
+  default     = "0"
 }
 
 variable "rack_3_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 3."
-  default = "20"
+  default     = "20"
 }
 
 variable "rack_3_data_avset_fault_domain_count" {
   description = "Specifies the number of fault domains that are used for rack 3."
-  default = "2"
+  default     = "2"
 }
 
 variable "rack_4_data_nb_instances" {
   description = "Specify the number of instances of data node in rack 4."
-  default = "0"
+  default     = "0"
 }
 
 variable "rack_4_data_avset_update_domain_count" {
   description = "Specifies the number of update domains that are used for rack 4."
-  default = "20"
+  default     = "20"
 }
 
 variable "rack_4_data_avset_fault_domain_count" {
   description = "Specifies the number of fault domains that are used for rack 4."
-  default = "2"
+  default     = "2"
 }
-

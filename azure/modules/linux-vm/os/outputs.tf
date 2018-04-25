@@ -9,4 +9,3 @@ output "calculated_value_os_offer" {
 output "calculated_value_os_sku" {
   value = "${element(split(",", lookup(var.standard_os, var.vm_os_simple, "")), 2)}"
 }
-

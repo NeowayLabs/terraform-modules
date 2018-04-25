@@ -62,4 +62,3 @@ output "public_network_bastion_avset_id" {
   description = "The bastion availability set id"
   value       = "${module.bastion.availability_set_id}"
 }
-

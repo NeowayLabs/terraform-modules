@@ -1,4 +1,3 @@
-
 output "subnet_id" {
   description = "The id of subnet created inside the vnet"
   value       = "${module.subnet.subnet_id}"
@@ -143,4 +142,3 @@ output "rack_4_data_availability_set_id" {
   description = "id of the availability set where the data vms are provisioned in rack 4."
   value       = "${module.rack_4_data.availability_set_id}"
 }
-

@@ -29,4 +29,3 @@ variable "rules" {
   type        = "list"
   default     = []
 }
-

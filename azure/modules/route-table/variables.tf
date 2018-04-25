@@ -29,4 +29,3 @@ variable "routes" {
   type        = "list"
   default     = []
 }
-
