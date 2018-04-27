@@ -32,6 +32,44 @@ module "route-table" {
 }
 ```
 
+Required Inputs
+----
+These variables must be set in the module block when using this module.
+
+#### vnet_resource_group
+Description: Resource group name that the virtual network was provisioned in.
+
+#### route_table_name
+Description: Route Table name
+
+Optional Inputs
+----
+
+These variables have default values and don't have to be set to use this module. You may set these variables to override their default values.
+
+#### location
+Description: The location/region where the core network will be created. The full list of Azure regions can be found at https://azure.microsoft.com/regions
+ - default: "eastus2"
+
+#### tags
+Description: The tags to associate with your route table.
+ - type: "map"
+ - default: {}
+
+#### routes
+Description: Routes for the route table using this format name = [name, address_prefix, next_hop_type, next_hop_in_ip_address]
+ - type: "list"
+ - default: []
+
+Outputs
+----
+
+#### route_table_id
+Description: The id of route table created
+
+#### route_table_name
+Description: The name of route table created
+
 ## Authors
 
 Originally created by [Luciano Faustino](https:github.com/lborguetti) and [Paulo Pizarro](https://github.com/ppizarro).
