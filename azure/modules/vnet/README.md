@@ -84,8 +84,23 @@ Description: The admin username of the VM that will be deployed
 Outputs
 ----
 
-#### vm_ids
-Description: Virtual machine ids created.
+#### vnet_id
+Description: The id of the newly created vNet
+
+#### vnet_location
+Description: The location of the newly created vNet
+
+#### vnet_resource_group
+Description: The resource group of the newly created vNet
+
+#### vnet_name
+Description: The Name of the newly created vNet
+
+#### vnet_address_space
+Description: The address space of the newly created vNet
+
+#### vnet_subnets
+Description: The ids of subnets created inside the newl vNet
 
 Authors
 =======
