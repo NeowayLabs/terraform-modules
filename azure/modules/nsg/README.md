@@ -43,15 +43,20 @@ Required Inputs
 ----
 These variables must be set in the module block when using this module.
 
-#### location
-Description: The location/region where the core network will be created. The full list of Azure regions can be found at https://azure.microsoft.com/regions
- - default: "eastus2"
-
 #### vnet_resource_group
 Description: Resource group name that the virtual network was provisioned in.
 
 #### security_group_name
 Description: Network security group name
+
+Optional Inputs
+----
+
+These variables have default values and don't have to be set to use this module. You may set these variables to override their default values.
+
+#### location
+Description: The location/region where the core network will be created. The full list of Azure regions can be found at https://azure.microsoft.com/regions
+ - default: "eastus2"
 
 #### tags
 Description: The tags to associate with your network security group.
@@ -62,11 +67,6 @@ Description: The tags to associate with your network security group.
 Description: Security rules for the network security group using this format name = [priority, direction, access, protocol, source_port_range, source_address_prefix, destination_port_range, destination_address_prefix, description]
  - type: "list"
  - default: []
-
-Optional Inputs
-----
-
-These variables have default values and don't have to be set to use this module. You may set these variables to override their default values.
 
 Outputs
 ----
