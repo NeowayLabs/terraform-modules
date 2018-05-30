@@ -5,7 +5,7 @@ variable "vm_os_simple" {
 # Definition of the standard OS with "SimpleName" = "publisher,offer,sku"
 variable "standard_os" {
   default = {
-    "UbuntuServer"  = "Canonical,UbuntuServer,16.04-LTS"
+    "UbuntuServer"  = "Canonical,UbuntuServer,18.04-LTS"
     "RHEL"          = "RedHat,RHEL,7.3"
     "openSUSE-Leap" = "SUSE,openSUSE-Leap,42.2"
     "CentOS"        = "OpenLogic,CentOS,7.3"
