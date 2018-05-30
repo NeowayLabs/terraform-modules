@@ -110,7 +110,6 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
     disk_size_gb                     = "${var.data_disk_size_gb}"
     caching                          = "${var.data_disk_caching}"
     lun                              = 0
-    delete_data_disks_on_termination = false
   }
 
   os_profile {
