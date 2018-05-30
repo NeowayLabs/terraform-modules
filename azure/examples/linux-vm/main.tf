@@ -30,6 +30,10 @@ module "vm-private" {
   location            = "eastus"
   subnet_id           = "${module.subnet.subnet_id}"
   vm_hostname         = "test-private"
+
+  data_disk              = "true"
+  data_disk_size_gb      = "64"
+  data_managed_disk_type = "Premium_LRS"
 }
 
 module "vm-public" {
