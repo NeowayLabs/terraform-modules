@@ -1,5 +1,5 @@
 provider "azurerm" {
-  version = "~> 1.1"
+  version = "~> 1.8"
 }
 
 resource "azurerm_network_security_group" "nsg" {

@@ -1,6 +1,6 @@
 # Configure the Azure Provider
 provider "azurerm" {
-  version = "~> 1.1"
+  version = "~> 1.8"
 }
 
 terraform {
