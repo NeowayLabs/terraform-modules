@@ -39,7 +39,7 @@ module "vm-private" {
 module "vm-public" {
   nb_instances        = 2
   source              = "../../modules/linux-vm"
-  resource_group_name = "${module.vnet.vnet_resource_group}"
+  resource_group_name = "test-vm-rg"
   location            = "eastus"
   subnet_id           = "${module.subnet.subnet_id}"
   vm_hostname         = "test-public"
