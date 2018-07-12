@@ -32,7 +32,7 @@ resource "azurerm_storage_account" "vm-sa" {
 }
 
 resource "azurerm_virtual_machine" "vm-linux" {
-  count                         = "${var.data_disk == "false" ? var.nb_instances : 0}"
+  count                         = "${var.nb_instances}"
   name                          = "${var.vm_hostname}-vm-${count.index}"
   location                      = "${var.location}"
   resource_group_name           = "${var.resource_group_name}"
@@ -54,62 +54,6 @@ resource "azurerm_virtual_machine" "vm-linux" {
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = "${var.os_managed_disk_type}"
-  }
-
-  os_profile {
-    computer_name  = "${var.vm_hostname}-${count.index}"
-    admin_username = "${var.admin_username}"
-  }
-
-  os_profile_linux_config {
-    disable_password_authentication = true
-
-    ssh_keys {
-      path     = "/home/${var.admin_username}/.ssh/authorized_keys"
-      key_data = "${file("${var.ssh_key}")}"
-    }
-  }
-
-  tags = "${var.tags}"
-
-  boot_diagnostics {
-    enabled     = "${var.boot_diagnostics}"
-    storage_uri = "${var.boot_diagnostics == "true" ? join(",", azurerm_storage_account.vm-sa.*.primary_blob_endpoint) : "" }"
-  }
-}
-
-resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
-  count                         = "${var.data_disk == "true" ? var.nb_instances : 0}"
-  name                          = "${var.vm_hostname}-vm-${count.index}"
-  location                      = "${var.location}"
-  resource_group_name           = "${var.resource_group_name}"
-  availability_set_id           = "${azurerm_availability_set.vm.id}"
-  vm_size                       = "${var.vm_size}"
-  network_interface_ids         = ["${element(azurerm_network_interface.vm.*.id, count.index)}"]
-  delete_os_disk_on_termination = "${var.delete_os_disk_on_termination}"
-
-  storage_image_reference {
-    id        = "${var.vm_os_id}"
-    publisher = "${var.vm_os_id == "" ? coalesce(var.vm_os_publisher, module.os.calculated_value_os_publisher) : ""}"
-    offer     = "${var.vm_os_id == "" ? coalesce(var.vm_os_offer, module.os.calculated_value_os_offer) : ""}"
-    sku       = "${var.vm_os_id == "" ? coalesce(var.vm_os_sku, module.os.calculated_value_os_sku) : ""}"
-    version   = "${var.vm_os_id == "" ? var.vm_os_version : ""}"
-  }
-
-  storage_os_disk {
-    name              = "${var.vm_hostname}-vm-${count.index}-osdisk"
-    managed_disk_type = "${var.os_managed_disk_type}"
-    create_option     = "FromImage"
-    caching           = "ReadWrite"
-  }
-
-  storage_data_disk {
-    name                             = "${var.vm_hostname}-vm-${count.index}-datadisk"
-    managed_disk_type                = "${var.data_managed_disk_type}"
-    create_option                    = "Empty"
-    disk_size_gb                     = "${var.data_disk_size_gb}"
-    caching                          = "${var.data_disk_caching}"
-    lun                              = 0
   }
 
   os_profile {
@@ -168,3 +112,22 @@ resource "azurerm_network_interface" "vm" {
     public_ip_address_id          = "${length(azurerm_public_ip.vm.*.id) > 0 ? element(concat(azurerm_public_ip.vm.*.id, list("")), count.index) : ""}"
   }
 }
+
+resource "azurerm_managed_disk" "vm" {
+  count                = "${var.data_disk == "true" ? var.nb_instances : 0}"
+  name                 = "${var.vm_hostname}-vm-${count.index}-datadisk"
+  location             = "${var.location}"
+  resource_group_name  = "${var.resource_group_name}"
+  storage_account_type = "${var.data_managed_disk_type}"
+  create_option        = "Empty"
+  disk_size_gb         = "${var.data_disk_size_gb}"
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "vm" {
+  count                = "${var.data_disk == "true" ? var.nb_instances : 0}"
+  managed_disk_id    = "${element(azurerm_managed_disk.vm.*.id, count.index)}"
+  virtual_machine_id = "${element(azurerm_virtual_machine.vm-linux.*.id, count.index)}"
+  lun                = "0"
+  caching            = "${var.data_disk_caching}"
+}
+
