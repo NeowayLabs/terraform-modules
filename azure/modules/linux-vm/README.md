@@ -37,7 +37,7 @@ More specifically this provisions:
 - Provisions two linux instances.
 - Ubuntu 14.04 Server VMs using `vm_os_publisher`, `vm_os_offer` and `vm_os_sku` which is configured with:
 - Additional tags are added to the resource group.
-- Add one 64GB premium managed data disk.
+- Add two premium managed data disks: 2048GB and 512GB
 
 ```hcl 
   module "linuxservers" {
@@ -50,13 +50,24 @@ More specifically this provisions:
     vm_os_offer            = "UbuntuServer"
     vm_os_sku              = "14.04.2-LTS"
     subnet_id              = "${module.subnet.subnet_id}"
-    data_disk              = "true"
-    data_disk_size_gb      = "64"
-    data_managed_disk_type = "Premium_LRS"
     tags                   = {
                                environment = "dev"
                                costcenter  = "it"
                              }
+    data_disks = [
+      {
+        type    = "Premium_LRS"
+        size_gb = "2048"
+        lun     = "0"
+        caching = "ReadWrite"
+      },
+      {
+        type    = "Premium_LRS"
+        size_gb = "512"
+        lun     = "1"
+        caching = "ReadWrite"
+      }
+    ]
   }
 
   output "linux_vm_private_ips" {
@@ -165,7 +176,7 @@ Description: A list of static IP address.
 
 #### delete_os_disk_on_termination
 Description: Delete datadisk when machine is terminated
- - default: "true"
+ - default: "false"
 
 #### avset_update_domain_count
 Description: Specifies the number of update domains that are used. Defaults to 5.
@@ -174,6 +185,18 @@ Description: Specifies the number of update domains that are used. Defaults to 5
 #### avset_fault_domain_count
 Description: Specifies the number of fault domains that are used. Defaults to 3.
  - default: "3"
+
+#### boot_diagnostics
+Description: (Optional) Enable or Disable boot diagnostics
+ - default: "false"
+
+#### boot_diagnostics_sa_type
+Description: (Optional) Storage account type for boot diagnostics
+ - default: "Standard_LRS"
+
+#### data_disks
+Description: A list of data disk to be created/attached for VM using this format = [type, size_gb, lun, caching]: "type" - The type of storage to use for the managed disk. Allowable values are Standard_LRS or Premium_LRS. Default: Premium_LRS. "size_gb" - (Required) Storage data disk size. "lun" - The Logical Unit Number of the Data Disk, which needs to be unique within the Virtual Machine. Changing this forces a new resource to be created. "caching" - Specifies the caching requirements for storage data disk. Default: ReadWrite.
+ - default: []
 
 #### data_managed_disk_type
 Description: Defines the type of storage account to be created for data disk. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS.
@@ -190,14 +213,6 @@ Description: Specifies the caching requirements for storage data disk
 #### data_disk
 Description: Set to true to add a datadisk.
  - default: "false"
-
-#### boot_diagnostics
-Description: (Optional) Enable or Disable boot diagnostics
- - default: "false"
-
-#### boot_diagnostics_sa_type
-Description: (Optional) Storage account type for boot diagnostics
- - default: "Standard_LRS"
 
 Outputs
 ----
