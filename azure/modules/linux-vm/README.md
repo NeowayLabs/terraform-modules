@@ -198,22 +198,6 @@ Description: (Optional) Storage account type for boot diagnostics
 Description: A list of data disk to be created/attached for VM using this format = [type, size_gb, lun, caching]: "type" - The type of storage to use for the managed disk. Allowable values are Standard_LRS or Premium_LRS. Default: Premium_LRS. "size_gb" - (Required) Storage data disk size. "lun" - The Logical Unit Number of the Data Disk, which needs to be unique within the Virtual Machine. Changing this forces a new resource to be created. "caching" - Specifies the caching requirements for storage data disk. Default: ReadWrite.
  - default: []
 
-#### data_managed_disk_type
-Description: Defines the type of storage account to be created for data disk. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS.
- - default: "Premium_LRS"
-
-#### data_disk_size_gb
-Description: Storage data disk size
- - default: ""
-
-#### data_disk_caching
-Description: Specifies the caching requirements for storage data disk
- - default: "ReadWrite"
-
-#### data_disk
-Description: Set to true to add a datadisk.
- - default: "false"
-
 Outputs
 ----
 
