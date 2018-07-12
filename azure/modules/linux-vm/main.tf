@@ -6,6 +6,10 @@ provider "random" {
   version = "~> 1.0"
 }
 
+provider "null" {
+  version = "~> 1.0"
+}
+
 locals {
   nb_data_disks_vm = "${length(var.data_disks)}"
   total_data_disks = "${var.nb_instances > 0 ? "${var.nb_instances * local.nb_data_disks_vm}" : "0"}"
@@ -118,21 +122,29 @@ resource "azurerm_network_interface" "vm" {
   }
 }
 
+resource "null_resource" "let" {
+  count = "${local.total_data_disks}"
+  triggers {
+    vm_index   = "${count.index / local.nb_data_disks_vm}"
+    disk_index = "${count.index - (local.nb_data_disks_vm * (count.index / local.nb_data_disks_vm))}"
+  }
+}
+
 resource "azurerm_managed_disk" "vm" {
   count                = "${local.total_data_disks}"
-  name                 = "${format("%s-vm-%d-datadisk-%03d", var.vm_hostname, count.index/local.nb_data_disks_vm, count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm)))}"
+  name                 = "${format("%s-vm-%s-datadisk-%03s", var.vm_hostname, element(null_resource.let.*.triggers.vm_index, count.index), element(null_resource.let.*.triggers.disk_index, count.index))}"
   location             = "${var.location}"
   resource_group_name  = "${var.resource_group_name}"
   create_option        = "Empty"
-  storage_account_type = "${lookup(var.data_disks[count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm))], "type", "Premium_LRS")}"
-  disk_size_gb         = "${lookup(var.data_disks[count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm))], "size_gb")}"
+  storage_account_type = "${lookup(var.data_disks[element(null_resource.let.*.triggers.disk_index, count.index)], "type", "Premium_LRS")}"
+  disk_size_gb         = "${lookup(var.data_disks[element(null_resource.let.*.triggers.disk_index, count.index)], "size_gb")}"
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "vm" {
   count              = "${local.total_data_disks}"
   managed_disk_id    = "${element(azurerm_managed_disk.vm.*.id, count.index)}"
-  virtual_machine_id = "${element(azurerm_virtual_machine.vm-linux.*.id, count.index/local.nb_data_disks_vm)}"
-  lun                = "${lookup(var.data_disks[count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm))], "lun", count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm)))}"
-  caching            = "${lookup(var.data_disks[count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm))], "caching", "ReadWrite")}"
+  virtual_machine_id = "${element(azurerm_virtual_machine.vm-linux.*.id, element(null_resource.let.*.triggers.vm_index, count.index))}"
+  lun                = "${lookup(var.data_disks[element(null_resource.let.*.triggers.disk_index, count.index)], "lun", element(null_resource.let.*.triggers.disk_index, count.index))}"
+  caching            = "${lookup(var.data_disks[element(null_resource.let.*.triggers.disk_index, count.index)], "caching", "ReadWrite")}"
 }
 
