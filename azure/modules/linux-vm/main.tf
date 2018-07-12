@@ -6,6 +6,11 @@ provider "random" {
   version = "~> 1.0"
 }
 
+locals {
+  nb_data_disks_vm = "${length(var.data_disks)}"
+  total_data_disks = "${var.nb_instances > 0 ? "${var.nb_instances * local.nb_data_disks_vm}" : "0"}"
+}
+
 module "os" {
   source       = "./os"
   vm_os_simple = "${var.vm_os_simple}"
@@ -114,20 +119,20 @@ resource "azurerm_network_interface" "vm" {
 }
 
 resource "azurerm_managed_disk" "vm" {
-  count                = "${var.data_disk == "true" ? var.nb_instances : 0}"
-  name                 = "${var.vm_hostname}-vm-${count.index}-datadisk"
+  count                = "${local.total_data_disks}"
+  name                 = "${format("%s-vm-%d-datadisk-%03d", var.vm_hostname, count.index/local.nb_data_disks_vm, count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm)))}"
   location             = "${var.location}"
   resource_group_name  = "${var.resource_group_name}"
-  storage_account_type = "${var.data_managed_disk_type}"
   create_option        = "Empty"
-  disk_size_gb         = "${var.data_disk_size_gb}"
+  storage_account_type = "${lookup(var.data_disks[count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm))], "type", "Premium_LRS")}"
+  disk_size_gb         = "${lookup(var.data_disks[count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm))], "size_gb")}"
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "vm" {
-  count                = "${var.data_disk == "true" ? var.nb_instances : 0}"
+  count              = "${local.total_data_disks}"
   managed_disk_id    = "${element(azurerm_managed_disk.vm.*.id, count.index)}"
-  virtual_machine_id = "${element(azurerm_virtual_machine.vm-linux.*.id, count.index)}"
-  lun                = "0"
-  caching            = "${var.data_disk_caching}"
+  virtual_machine_id = "${element(azurerm_virtual_machine.vm-linux.*.id, count.index/local.nb_data_disks_vm)}"
+  lun                = "${lookup(var.data_disks[count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm))], "lun", count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm)))}"
+  caching            = "${lookup(var.data_disks[count.index - (local.nb_data_disks_vm*(count.index/local.nb_data_disks_vm))], "caching", "ReadWrite")}"
 }
 

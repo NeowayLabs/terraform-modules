@@ -114,7 +114,7 @@ variable "private_ip_address_list" {
 
 variable "delete_os_disk_on_termination" {
   description = "Delete datadisk when machine is terminated"
-  default     = "true"
+  default     = "false"
 }
 
 variable "avset_update_domain_count" {
@@ -127,27 +127,6 @@ variable "avset_fault_domain_count" {
   default     = "3"
 }
 
-variable "data_managed_disk_type" {
-  description = "Defines the type of storage account to be created for data disk. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS."
-  default     = "Premium_LRS"
-}
-
-variable "data_disk_size_gb" {
-  description = "Storage data disk size"
-  default     = ""
-}
-
-variable "data_disk_caching" {
-  description = "Specifies the caching requirements for storage data disk"
-  default     = "ReadWrite"
-}
-
-variable "data_disk" {
-  type        = "string"
-  description = "Set to true to add a datadisk."
-  default     = "false"
-}
-
 variable "boot_diagnostics" {
   description = "(Optional) Enable or Disable boot diagnostics"
   default     = "false"
@@ -157,3 +136,19 @@ variable "boot_diagnostics_sa_type" {
   description = "(Optional) Storage account type for boot diagnostics"
   default     = "Standard_LRS"
 }
+
+# Data Disk definition
+
+# The following arguments are supported:
+# "type"    - "The type of storage to use for the managed disk. Allowable values are Standard_LRS or Premium_LRS. Default: Premium_LRS."
+# "size_gb" - "(Required) Storage data disk size"
+# "lun"     - "The Logical Unit Number of the Data Disk, which needs to be unique within the Virtual Machine. Changing this forces a new resource to be created."
+# "caching" - "Specifies the caching requirements for storage data disk. Default: ReadWrite"
+
+variable "data_disks" {
+  description = "Data disk to be created/attached for VM using this format name = [type, size_gb, lun, caching]"
+  type        = "list"
+  default     = []
+}
+
+

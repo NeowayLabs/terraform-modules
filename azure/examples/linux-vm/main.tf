@@ -31,9 +31,20 @@ module "vm-private" {
   subnet_id           = "${module.subnet.subnet_id}"
   vm_hostname         = "test-private"
 
-  data_disk              = "true"
-  data_disk_size_gb      = "64"
-  data_managed_disk_type = "Premium_LRS"
+  data_disks = [
+    {
+      type    = "Premium_LRS"
+      size_gb = "2048"
+      lun     = "0"
+      caching = "ReadWrite"
+    },
+    {
+      type    = "Premium_LRS"
+      size_gb = "512"
+      lun     = "1"
+      caching = "ReadWrite"
+    }
+  ]
 }
 
 module "vm-public" {
