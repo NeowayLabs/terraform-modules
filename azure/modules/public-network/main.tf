@@ -1,5 +1,5 @@
 provider "azurerm" {
-  version = "~> 1.8"
+  version = "~> 1.9.0"
 }
 
 resource "azurerm_resource_group" "public" {
