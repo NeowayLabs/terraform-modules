@@ -113,8 +113,8 @@ variable "private_ip_address_list" {
 }
 
 variable "delete_os_disk_on_termination" {
-  description = "Delete datadisk when machine is terminated"
-  default     = "false"
+  description = "Delete OS disk when machine is terminated"
+  default     = "true"
 }
 
 variable "avset_update_domain_count" {

@@ -175,7 +175,7 @@ Description: A list of static IP address.
  - default: [""]
 
 #### delete_os_disk_on_termination
-Description: Delete datadisk when machine is terminated
+Description: Delete OS disk when machine is terminated
  - default: "false"
 
 #### avset_update_domain_count
