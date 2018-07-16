@@ -150,5 +150,3 @@ variable "data_disks" {
   type        = "list"
   default     = []
 }
-
-

@@ -19,7 +19,7 @@ Provisions an Ubuntu Server 16.04-LTS VM using `vm_os_simple` to a new VNet.  Al
 
 ```hcl
   module "linuxserver" {
-    source              = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/linux-vm"
+    source              = "git::ssh://git@github.com/NeowayLabs/terraform-modules.git//azure/modules/linux-vm"
     resource_group_name = "test-linux-vm"
     location            = "eastus"
     vm_os_simple        = "UbuntuServer"

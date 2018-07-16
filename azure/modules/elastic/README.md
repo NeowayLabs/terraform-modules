@@ -30,7 +30,7 @@ Usage
 
 ```hcl
 module "elastic" {
-    source                = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/elastic"
+    source                = "git::ssh://git@github.com/NeowayLabs/terraform-modules.git//azure/modules/elastic"
     location              = "eastus"
     env                   = "qa"
     name                  = "es5"

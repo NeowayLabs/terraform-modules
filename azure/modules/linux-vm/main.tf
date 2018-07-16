@@ -124,6 +124,7 @@ resource "azurerm_network_interface" "vm" {
 
 resource "null_resource" "let" {
   count = "${local.total_data_disks}"
+
   triggers {
     vm_index   = "${count.index / local.nb_data_disks_vm}"
     disk_index = "${count.index - (local.nb_data_disks_vm * (count.index / local.nb_data_disks_vm))}"
@@ -147,4 +148,3 @@ resource "azurerm_virtual_machine_data_disk_attachment" "vm" {
   lun                = "${lookup(var.data_disks[element(null_resource.let.*.triggers.disk_index, count.index)], "lun", element(null_resource.let.*.triggers.disk_index, count.index))}"
   caching            = "${lookup(var.data_disks[element(null_resource.let.*.triggers.disk_index, count.index)], "caching", "ReadWrite")}"
 }
-

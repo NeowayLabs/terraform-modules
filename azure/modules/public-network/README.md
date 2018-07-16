@@ -20,7 +20,7 @@ Usage
 
 ```hcl
 module "public" {
-    source                = "git::ssh://git@gitlab.neoway.com.br:10022/labs/terraform-modules.git//azure/modules/public-network"
+    source                = "git::ssh://git@github.com/NeowayLabs/terraform-modules.git//azure/modules/public-network"
     env                   = "qa"
     location              = "eastus"
     vnet_address_space    = ["10.0.0.0/16"]

@@ -43,7 +43,7 @@ module "vm-private" {
       size_gb = "512"
       lun     = "1"
       caching = "ReadWrite"
-    }
+    },
   ]
 }
 
