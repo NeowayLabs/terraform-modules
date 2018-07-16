@@ -25,10 +25,10 @@ Updating linux-vm module to this version forces a new VM and data disk to be cre
 
 ### Features:
 
-* **elastic:**
-* **public-network:**
-* **linux-vm:**
-* **vnet:**
-* **nsg:**
-* **route-table:**
-* **subnet:**
+* **elastic:** Create a elasticsearch cluster following Neoway rules
+* **public-network:** Create a public network following Neoway rules
+* **linux-vm:** Deploys 1+ Linux Virtual Machines to your provided VNet
+* **nsg:** Create a network security group and attached it to a subnet
+* **route-table:** Create a route table and attached it to a subnet
+* **subnet:** Create a basic subnet network in Azure
+* **vnet:** Create a basic virtual network in Azure
