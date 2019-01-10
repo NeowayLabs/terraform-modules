@@ -28,7 +28,7 @@ module "public" {
     security_group_rules  = "${local.nsg_rules}"
     route_table_routes    = "${local.rt_routes}"
 
-    bastion_private_ip_address = "10.141.1.150"
+    bastion_private_ip_address = "10.0.1.150"
     bastion_admin_username     = "bootstrap"
     bastion_public_ssh_key     = "~/.ssh/id_rsa.pub"
 }
@@ -160,4 +160,3 @@ Description: The bastion private ip address
 
 #### public_network_bastion_avset_id
 Description: The bastion availability set id
-
